@@ -134,6 +134,14 @@ tr.tlr td{padding:2px 8px 16px;border-bottom:1px solid var(--line)}
 .fd dt{color:var(--mute)}.fd dd{margin:0;overflow-wrap:anywhere}
 .fempty{color:var(--mute);padding:40px 0;text-align:center}
 @media(max-width:900px){.md{grid-template-columns:minmax(0,1fr)}.olist{max-height:360px}.ficha{position:static}}
+.welcome{display:grid;place-items:center;min-height:min(62vh,560px)}
+.wdrop{display:grid;justify-items:center;gap:10px;text-align:center;width:min(640px,100%);padding:clamp(32px,6vw,64px) 24px;border:2px dashed rgba(62,232,255,.55);border-radius:18px;background:#17181b;cursor:pointer;color:var(--acc);box-shadow:0 0 24px rgba(62,232,255,.12)}
+.wdrop:hover,.wdrop.on{border-color:var(--acc);box-shadow:0 0 32px rgba(62,232,255,.3)}
+.wdrop:focus-visible{outline:2px solid var(--acc2);outline-offset:4px}
+.wdrop strong{color:var(--acc2);font-size:clamp(18px,2.4vw,24px);font-weight:600;text-shadow:0 0 12px rgba(244,251,255,.35)}
+.wdrop span{color:var(--mute);font-size:15px;max-width:44ch}
+.wdrop input{display:none}
+[hidden]{display:none!important}
 .scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{text-align:left;color:var(--mute);font-weight:500;border-bottom:1px solid var(--line);padding:0}
@@ -169,7 +177,15 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     <label class="drop" id="drop" tabindex="0"><input type="file" id="file" accept=".xlsx,.xls,.xlsm">Arrastra o <b>elige un Excel</b> de correos</label>
   </div>
 </header>
-<main class="band" style="padding-top:12px">
+<section class="band welcome" id="welcome">
+  <label class="wdrop" id="wdrop" tabindex="0"><input type="file" id="file2" accept=".xlsx,.xls,.xlsm">
+    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M12 11v6"/><path d="M9.5 13.5 12 11l2.5 2.5"/></svg>
+    <strong>Carga el Excel de correos para ver el dashboard</strong>
+    <span>Arrastra aquí el archivo o toca para elegirlo. Debe traer las pestañas CDMX y CENTRO.</span>
+  </label>
+  <p class="err" id="err2" hidden></p>
+</section>
+<main class="band" id="main" style="padding-top:12px" hidden>
   <div class="filters" id="filters">
     <label>Año<select id="fy"></select></label>
     <label>Mes<select id="fm"></select></label>
@@ -199,7 +215,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 <script>
 {
 const SHEETS=['CDMX','CENTRO'];
-const SEED={"CDMX": [{"fecha": "2026-11-03T10:43:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-434666 || KSMV CAPITAL SAPI DE CV || FAC-MCA-TZS-291026-DCU", "cliente": "KSMV CAPITAL SAPI DE CV", "id": "555-10031-2", "plaza": "Cuauhtémoc", "ot": "OT-434666", "men": null, "fmen": "", "dmen": null, "dtot": 21}, {"fecha": "2026-11-24T15:53:21", "rem": "elimartinezp@mcmtechco.com", "asunto": "RV: OT-374496|| FAC-MCM-ENY-140525-MAR GEPP Cedis Maravatio BFB 50   Mbps|| GEPP CORPORATIVO SANTA FE|| TLAHUAC", "cliente": null, "id": null, "plaza": null, "ot": "OT-374496", "men": null, "fmen": "", "dmen": null, "dtot": 519}, {"fecha": "2026-11-19T10:04:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-428675 || APOTEX MEXICO || FAC-MCA-HI6-070926-CUI", "cliente": "APOTEX MEXICO", "id": "457-30248", "plaza": null, "ot": "OT-428675", "men": null, "fmen": "", "dmen": null, "dtot": 5}, {"fecha": "2026-10-30T12:09:00", "rem": "nnoya@mcmtechco.com", "asunto": "RV: OT-430831 // SOCIAL NATION", "cliente": "SOCIAL NATION", "id": "529-4954-3", "plaza": "Benito Juárez CDMX", "ot": "OT-430831", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-17T15:25:00", "dmen": 18, "dtot": 25}, {"fecha": "2026-10-07T14:23:00", "rem": "nnoya@mcmtechco.com", "asunto": "RV: OT-430254 // GRUPO CONSULTOR SICC - Ecatepec", "cliente": "GRUPO CONSULTOR SICC", "id": "540-74859-3", "plaza": null, "ot": "OT-430254", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-17T14:06:00", "dmen": 41, "dtot": 48}, {"fecha": "2026-09-15T12:58:00", "rem": "nnoya@mcmtechco.com", "asunto": "RV: OT-428229 // Compass Solutions", "cliente": "Compass Solutions", "id": "997-0", "plaza": "xMCM", "ot": "OT-428229", "men": "SÍ: @Diana Perez, @David Gibran, @Grupo equipo", "fmen": "2026-10-22T09:53:00", "dmen": 37, "dtot": 70}, {"fecha": "2026-11-20T18:00:00", "rem": "elimartinezp@mcmtechco.com", "asunto": "RV: OT-434684 | FAC-MCM-IHB-291026-DGM | TELEMUNDO | IDE 500 Mbps", "cliente": "TELEMUNDO", "id": "997-0", "plaza": "xMCM", "ot": "OT-434684", "men": null, "fmen": "", "dmen": null, "dtot": 4}, {"fecha": "2026-11-23T23:34:14", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: REDETONACIÓN: OT-383470 || INGERSOL ||", "cliente": null, "id": null, "plaza": null, "ot": "OT-383470", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-18T16:56:00", "dmen": 22, "dtot": 28}, {"fecha": "2026-11-20T11:15:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-432953 || Ingenieria Condor SA de CV || FAC-MCA-VYG-081026-CUI", "cliente": "Ingenieria Condor SA de CV", "id": "417-67162-3", "plaza": null, "ot": "OT-432953", "men": null, "fmen": "", "dmen": null, "dtot": 4}, {"fecha": "2026-11-06T14:36:00", "rem": "erlopezlu@mcmtechco.com", "asunto": "RV: DETONACION // OT-433445 // Grupo Vanguardia en Información y Conocimiento SA de CV -Calz. de Tlalpan // 764432", "cliente": "Grupo Vanguardia en Informacion y Conocimiento SA de CV", "id": "529-5005-2", "plaza": "Benito Juárez CDMX", "ot": "OT-433445", "men": "SÍ: @Carlos Jardon, @Grupo equipo", "fmen": "2026-11-19T11:31:00", "dmen": 13, "dtot": 18}, {"fecha": "2026-10-23T10:21:00", "rem": "rgonzalezp@mcmtechco.com", "asunto": "RV: OT-431203 // FAC-MCA-X2O-180926-DMH // GRUPO SAMSUNG E&A MÉXICO", "cliente": "GRUPO SAMSUNG E&A MÉXICO", "id": "401-26631-3", "plaza": "Miguel Hidalgo", "ot": "OT-431203", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-17T09:30:00", "dmen": 25, "dtot": 32}, {"fecha": "2026-10-20T22:23:00", "rem": "dabolanos@mcmtechco.com", "asunto": "RV: OT-432912 || REGALOS SIGLO XXI || FAC-MCA-552-070926-TTL", "cliente": "REGALOS SIGLO XXI", "id": "63-160069", "plaza": "Tlalnepantla", "ot": "OT-432912", "men": "SÍ: @Diana Perez, @Grupo equipo", "fmen": "2026-11-11T16:55:00", "dmen": 22, "dtot": 35}, {"fecha": "2026-10-30T11:21:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-431456 || Grupo ZD Logística || FAC-MCA-RT9-021026-DVC", "cliente": "Grupo ZD Logística", "id": "473-52916-8", "plaza": "Venustiano Carranza", "ot": "OT-431456", "men": null, "fmen": "", "dmen": null, "dtot": 25}, {"fecha": "2026-10-19T10:29:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-431767 || Hotel Embassy || FAC-MCA-3QX-071026-DCU", "cliente": "Hotel Embassy", "id": "555-9821-3", "plaza": "Cuauhtémoc", "ot": "OT-431767", "men": "SÍ: @Cristian Jaime", "fmen": "2026-11-04T16:01:00", "dmen": 16, "dtot": 36}, {"fecha": "2026-11-20T18:00:00", "rem": "elimartinezp@mcmtechco.com", "asunto": "RV: OT-434684 | FAC-MCM-IHB-291026-DGM | TELEMUNDO | IDE 500 Mbps", "cliente": "TELEMUNDO", "id": "997-0", "plaza": "xMCM", "ot": "OT-434684", "men": null, "fmen": "", "dmen": null, "dtot": 4}, {"fecha": "2026-08-13T12:51:00", "rem": "mjpalaciosr@mcmtechco.com", "asunto": "RV: OT-425313 || GOLD TELECOM, INC || FAC-GCN-J0G-310726-DMH", "cliente": "GOLD TELECOM, INC", "id": "997-0", "plaza": "xMCM", "ot": "OT-425313", "men": null, "fmen": "", "dmen": null, "dtot": 103}], "CENTRO": [{"fecha": "2026-11-19T10:33:28", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-437398 Cemex Operaciones Mexico SA de CV // CLIENTE Directo", "cliente": "Cemex Operaciones Mexico SA de CV", "id": "106-853764-2", "plaza": "Toluca", "ot": "OT-437398", "men": null, "fmen": "", "dmen": null, "dtot": 5}, {"fecha": "2026-11-17T12:34:56", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-434834 GRUPO POSADAS S.A.B. DE C.V. (Fiesta Americana Hacienda   Ixtapan de la Sal) // CLIENTE Directo", "cliente": "GRUPO POSADAS S.A.B. DE C.V. (Fiesta Americana Hacienda Ixtapan de la Sal)", "id": "302-6183-2", "plaza": "Ixtapan de la Sal", "ot": "OT-434834", "men": null, "fmen": "", "dmen": null, "dtot": 7}, {"fecha": "2026-11-11T11:44:14", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-431559 INSTITUTO DE INFERTILIDAD Y GENETICA MEXICO S. C. //   CLIENTE Directo", "cliente": "INSTITUTO DE INFERTILIDAD Y GENETICA MEXICO S. C.", "id": "107-440795-2", "plaza": "Metepec", "ot": "OT-431559", "men": null, "fmen": "", "dmen": null, "dtot": 13}, {"fecha": "2026-11-10T13:07:23", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-435067 Corporativo Contable CYG // CLIENTE Directo", "cliente": "Corporativo Contable CYG", "id": "106-853101-3", "plaza": "Toluca", "ot": "OT-435067", "men": null, "fmen": "", "dmen": null, "dtot": 14}, {"fecha": "2026-11-05T16:41:41", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-429739 Ragar // CLIENTE Directo", "cliente": "Ragar", "id": "232-11926-3", "plaza": "Santa María Rayón", "ot": "OT-429739", "men": null, "fmen": "", "dmen": null, "dtot": 19}]};
+const SEED={"CDMX":[],"CENTRO":[]};
 let fy='',fm='',fmen='',data={},dups=0,fileName='correos_20261124_1009.xlsx',view='TODAS',plaza=null,person=null,q='',sortK='dtot',sortD=-1;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -228,7 +244,7 @@ function loadSeed(){dups=0;for(const s of SHEETS)data[s]=norm(SEED[s]||[],s);}
 const nk=k=>k.normalize('NFD').replace(/[̀-ͯ]/g,'').trim().toLowerCase();
 function pick(o,names){const k=Object.keys(o).find(k=>names.includes(nk(k)));return k?o[k]:'';}
 function readFile(f){
-  $('err').hidden=true;
+  $('err').hidden=true;$('err2').hidden=true;
   if(typeof XLSX==='undefined'){showErr('No se pudo cargar el lector de Excel (revisa tu conexión a internet).');return;}
   const rd=new FileReader();
   rd.onload=e=>{try{
@@ -237,10 +253,10 @@ function readFile(f){
       const rows=XLSX.utils.sheet_to_json(wb.Sheets[name],{defval:''});
       found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot']),men:pick(o,['1ra mencion','primera mencion','mencion']),fmen:pick(o,['fecha 1ra mencion','fecha primera mencion','fecha mencion']),dmen:pick(o,['dias hasta mencion']),dtot:pick(o,['dias totales ot','dias totales'])})),s);}
     if(!Object.keys(found).length){showErr('El archivo no tiene pestañas llamadas CDMX ni CENTRO.');return;}
-    data={CDMX:found.CDMX||[],CENTRO:found.CENTRO||[]};fileName=f.name;plaza=null;person=null;render();
+    data={CDMX:found.CDMX||[],CENTRO:found.CENTRO||[]};fileName=f.name;plaza=null;person=null;selOT=null;showDash(true);render();
   }catch(err){showErr('No se pudo leer el archivo: '+err.message);}};
   rd.readAsArrayBuffer(f);}
-function showErr(m){$('err').textContent=m;$('err').hidden=false;}
+function showErr(m){const el=$('main').hidden?$('err2'):$('err');el.textContent=m;el.hidden=false;}
 function inPeriod(r){if(fmen&&(fmen==='si')!==r.men)return false;if(!fy&&!fm)return true;if(!r.fecha)return false;return (!fy||r.fecha.getFullYear()==fy)&&(!fm||r.fecha.getMonth()+1==fm);}
 function rowsFor(){return (view==='TODAS'?[...data.CDMX,...data.CENTRO]:data[view]).filter(inPeriod);}
 function renderFilters(){
@@ -376,7 +392,7 @@ $('fy').addEventListener('change',e=>{fy=e.target.value;plaza=null;render();});
 $('fm').addEventListener('change',e=>{fm=e.target.value;plaza=null;render();});
 $('fmen').addEventListener('change',e=>{fmen=e.target.value;plaza=null;person=null;render();});
 $('freset').addEventListener('click',()=>{fy='';fm='';fmen='';plaza=null;person=null;q='';$('q').value='';render();});
-$('file').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);});
+$('file').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);e.target.value='';});
 const dz=$('drop');dz.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file').click();}});
 ['dragenter','dragover'].forEach(t=>document.addEventListener(t,e=>{e.preventDefault();dz.classList.add('on');}));
 ['dragleave','drop'].forEach(t=>document.addEventListener(t,e=>{e.preventDefault();dz.classList.remove('on');}));
@@ -384,7 +400,13 @@ document.addEventListener('drop',e=>{const f=e.dataTransfer?.files?.[0];if(f)rea
 const ro=new ResizeObserver(drawChart);ro.observe($('svg'));
 const ro2=new ResizeObserver(drawAge);ro2.observe($('agesvg'));
 try{const v=localStorage.getItem('ot-tab');if(['TODAS','CDMX','CENTRO'].includes(v))view=v;}catch(e){}
-loadSeed();render();
+function showDash(on){$('welcome').hidden=on;$('main').hidden=!on;$('tabs').hidden=!on;$('drop').hidden=!on;
+  if(!on)$('sub').textContent='Sin archivo cargado';}
+$('file2').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);});
+$('wdrop').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file2').click();}});
+['dragenter','dragover'].forEach(t=>document.addEventListener(t,()=>$('wdrop').classList.add('on')));
+['dragleave','drop'].forEach(t=>document.addEventListener(t,()=>$('wdrop').classList.remove('on')));
+loadSeed();showDash(false);
 }
 </script>
 </body></html>
