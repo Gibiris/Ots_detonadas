@@ -51,11 +51,94 @@ input[type=file]{display:none}
 .filters select:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
 .filters .chip{min-height:44px;padding:0 16px}
 .fsum{color:var(--mute);font-size:14px;align-self:center}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wide{margin-top:16px}
+.fig.age{min-height:400px}
+.ageh{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:6px}
+.ageh .leg{margin:0}
+.sc{font-size:13px;color:var(--mute);display:flex;gap:8px;align-items:center;cursor:pointer;min-height:32px}
+.sc input{accent-color:#3ee8ff;width:18px;height:18px}
+#agesvg rect{cursor:pointer}
+.trk{border:1px solid var(--line);border-radius:10px;padding:14px 14px 4px;margin-bottom:18px;background:#17181b}
+.trkh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:center;margin-bottom:6px}
+.win{background:var(--bg);color:var(--ink);border:1px solid var(--acc);border-radius:8px;min-height:36px;padding:0 10px;font:14px Geist,sans-serif}
+.trkh h3{margin:0;font-size:15px;font-weight:600}
+.trkh .leg{margin:0}
+.fig.trkfig{min-height:0}
+#trksvg g.row{cursor:pointer}
+#trksvg g.row:hover rect.zb{fill:#202227}
+tr.mr td{border-bottom:0;padding-bottom:4px}
+tr.tlr td{padding:2px 8px 16px;border-bottom:1px solid var(--line)}
+.tl{position:relative;padding:8px 10px 0}
+.tl-bar{position:relative;height:16px;margin:0 7px}
+.tl-track{position:absolute;left:0;right:0;top:5px;height:6px;border-radius:3px;background:#2c2e33}
+.tl-fill{position:absolute;left:0;top:4px;height:8px;border-radius:4px}
+.tl-fill.b{background:var(--acc);box-shadow:0 0 10px rgba(62,232,255,.6)}
+.tl-fill.w{background:var(--acc2);box-shadow:0 0 10px rgba(244,251,255,.45)}
+.tl-fill.hot2{background:linear-gradient(90deg,var(--acc2) 60%,#ff8a80)}
+.tl-after{position:absolute;top:7px;height:0;border-top:2px dashed rgba(62,232,255,.45)}
+.mk{position:absolute;top:8px;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%}
+.mk.det{background:var(--acc2);border:2px solid var(--bg)}
+.mk.men{background:var(--acc);border:2px solid var(--acc2);border-radius:2px;transform:translate(-50%,-50%) rotate(45deg);width:13px;height:13px}
+.mk.re{border:2px solid #9a9ca3;background:var(--panel);width:12px;height:12px}
+.mk.cut{width:2px;height:18px;border-radius:1px;background:var(--acc);opacity:.7}
+.tl-lab{display:grid;grid-template-columns:auto 1fr auto;gap:4px 16px;margin-top:6px;font-size:12px;color:var(--mute)}
+.tl-lab .m{text-align:center}.tl-lab .e{text-align:right}
+.tl-lab b{color:var(--ink);font-weight:600}.tl-lab b.c{color:var(--acc)}.tl-lab b.r{color:#ff8a80}.tl-lab b.w{color:var(--acc2)}
+.tl-sub{margin:6px 0 0;font-size:12px;color:#6f727a;overflow-wrap:anywhere}
+.empty2{color:var(--mute);font-size:12px}
+@media(max-width:900px){tr.mr{border-bottom:0!important}tr.tlr{display:block!important;padding:0 0 12px!important;border-bottom:1px solid var(--line)}tr.tlr td{display:block;padding:0!important;border:0}tr.tlr td::before{display:none}.tl{padding:4px 0 0}.tl-lab{grid-template-columns:1fr;gap:2px}.tl-lab .m,.tl-lab .e{text-align:left}}
+.md{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:16px;align-items:start}
+.osl{margin-bottom:8px}
+.olist{display:grid;gap:4px;max-height:620px;overflow-y:auto;padding:2px 4px 2px 0;border-radius:10px}
+.olist:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+.oi{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;background:#17181b;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--ink);font:14px Geist,sans-serif;cursor:pointer;min-height:56px}
+.oi:hover{background:#1f2125}
+.oi.sel{background:#0b2a33;border-color:var(--acc);box-shadow:0 0 14px rgba(62,232,255,.25)}
+.sd{width:10px;height:10px;border-radius:50%}.sd.si{background:var(--acc);box-shadow:0 0 8px rgba(62,232,255,.7)}.sd.no{background:var(--acc2);box-shadow:0 0 8px rgba(244,251,255,.5)}
+.oc{display:grid;min-width:0}.oc .mono{font-size:13px}
+.ocl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ops{font-size:12px;color:var(--mute)}
+.od{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.led{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none}
+.led.g{background:#39ff7a;box-shadow:0 0 6px #39ff7a,0 0 14px rgba(57,255,122,.6)}
+.led.y{background:#ffd23f;box-shadow:0 0 6px #ffd23f,0 0 14px rgba(255,210,63,.6)}
+.seg3{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg3 button{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--line);color:var(--mute);border-radius:999px;padding:0 14px;min-height:40px;font:500 14px Geist,sans-serif;cursor:pointer}
+.seg3 button span{color:var(--ink);font-variant-numeric:tabular-nums}
+.seg3 button[aria-pressed=true]{border-color:var(--acc);color:var(--ink);background:#0b2a33;box-shadow:0 0 12px rgba(62,232,255,.3)}
+.seg3 button:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}.od.r{color:#ff8a80}
+.mono{font-family:'Geist Mono',monospace;color:var(--acc);text-shadow:0 0 8px rgba(62,232,255,.45)}
+.ficha{background:#17181b;border:1px solid var(--line);border-radius:12px;padding:20px 22px;position:sticky;top:16px}
+.fh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.fh .mono{font-size:15px}
+.fn{margin:6px 0 2px;font-size:clamp(20px,2.2vw,26px);line-height:1.15;font-weight:600;text-wrap:balance}
+.fm{margin:0 0 18px;color:var(--mute);font-size:14px}
+.stp{list-style:none;margin:0;padding:0}
+.stp li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px}
+.stp li>div{display:grid;gap:1px;padding-bottom:4px}
+.stp b{font-weight:600}.stp span{color:var(--mute);font-size:14px}.stp small{color:#6f727a;font-size:12px}
+.stp b.c{color:var(--acc)}.stp b.r{color:#ff8a80}.stp b.big{font-size:20px;color:var(--ink)}.stp b.big.r{color:#ff8a80}
+.st .dot{width:16px;height:16px;border-radius:50%;margin:3px 3px 0;background:var(--acc2);box-shadow:0 0 10px rgba(244,251,255,.5)}
+.st.men .dot{background:var(--acc);border:2px solid var(--acc2);border-radius:3px;transform:rotate(45deg);width:14px;height:14px;margin:4px 4px 0;box-shadow:0 0 12px rgba(62,232,255,.7)}
+.st.cut .dot{background:none;border:2px solid var(--acc)}.st.cut.hot .dot{border-color:#ff8a80}
+.seg{min-height:58px}.seg .ln{width:4px;margin:0 9px;border-radius:2px;height:100%;min-height:58px}
+.seg>div{align-self:center;padding:8px 0}
+.seg.b .ln{background:var(--acc);box-shadow:0 0 10px rgba(62,232,255,.6)}
+.seg.g .ln{background:repeating-linear-gradient(to bottom,rgba(62,232,255,.5) 0 4px,transparent 4px 9px)}
+.seg.w .ln{background:var(--acc2);box-shadow:0 0 10px rgba(244,251,255,.4)}
+.seg.r .ln{background:linear-gradient(var(--acc2),#ff8a80);box-shadow:0 0 10px rgba(255,138,128,.4)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tags em{font-style:normal;font-size:12px;background:#0b2a33;color:var(--acc);border-radius:999px;padding:2px 10px}
+.fd{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:18px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:13px}
+.fd dt{color:var(--mute)}.fd dd{margin:0;overflow-wrap:anywhere}
+.fempty{color:var(--mute);padding:40px 0;text-align:center}
+@media(max-width:900px){.md{grid-template-columns:minmax(0,1fr)}.olist{max-height:360px}.ficha{position:static}}
 .scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{text-align:left;color:var(--mute);font-weight:500;border-bottom:1px solid var(--line);padding:0}
-th button{background:none;border:0;color:inherit;font:inherit;padding:10px 8px;cursor:pointer;width:100%;text-align:left}
-td{padding:10px 8px;border-bottom:1px solid #232529;vertical-align:top}
+th button{background:none;border:0;color:inherit;font:inherit;padding:10px 7px;cursor:pointer;width:100%;text-align:left}
+td{padding:10px 7px;border-bottom:1px solid #232529;vertical-align:top}
 td.ot{font-family:'Geist Mono',monospace;color:var(--acc);text-shadow:0 0 8px rgba(62,232,255,.5);white-space:nowrap}
 td.f{white-space:nowrap;font-variant-numeric:tabular-nums}
 td.as{color:var(--mute);font-size:13px;max-width:380px}
@@ -63,135 +146,243 @@ td.as{color:var(--mute);font-size:13px;max-width:380px}
 .empty{color:var(--mute);padding:24px 8px;text-align:center}
 .note{color:var(--mute);font-size:13px;margin-top:10px}
 .err{color:#ff8a80;font-size:14px}
-@media(max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7em;text-align:start;max-width:none}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;color:var(--mute)}.stack td:empty{display:none}}
+@media(max-width:820px){.grid,.g2{grid-template-columns:minmax(0,1fr)}.fig.age{min-height:340px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8.5em;text-align:start;max-width:none}.stack td::before{content:attr(data-l);float:inline-start;width:8em;margin-inline-start:-8.5em;color:var(--mute)}.stack td:empty{display:none}}
 @media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+.kpis{grid-template-columns:repeat(5,minmax(0,1fr))}
+.badge{display:inline-block;border-radius:999px;padding:1px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-si{background:#0b2a33;color:var(--acc);box-shadow:0 0 8px rgba(62,232,255,.35)}
+.b-no{background:#2a2c31;color:var(--acc2)}
+.ppl{color:var(--mute);font-size:12px;display:block;margin-top:2px}
+.bar.w i{background:var(--acc2);box-shadow:0 0 10px rgba(244,251,255,.5)}
+.leg{display:flex;gap:14px;font-size:12px;color:var(--mute);margin:-6px 0 10px;flex-wrap:wrap}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hot{color:#ff8a80}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:900px){td.n{text-align:start}}
 </style></head><body>
 <header class="band">
   <div><h1 id="title">DETONACIONES RECIBIDAS</h1><p class="tag">IMP_CONECTIVIDAD_CDMX</p><p class="sub" id="sub">Cargando…</p>
   <div class="tabs" role="tablist" id="tabs"></div></div>
   <div class="load">
-    <label class="drop" id="drop" tabindex="0"><input type="file" id="file" accept=".xlsx,.xls,.xlsm,.csv">Arrastra o <b>elige un Excel</b> de correos</label>
+    <label class="drop" id="drop" tabindex="0"><input type="file" id="file" accept=".xlsx,.xls,.xlsm">Arrastra o <b>elige un Excel</b> de correos</label>
   </div>
 </header>
 <main class="band" style="padding-top:12px">
   <div class="filters" id="filters">
     <label>Año<select id="fy"></select></label>
     <label>Mes<select id="fm"></select></label>
+    <label>1ra mención<select id="fmen"><option value="">Todas</option><option value="si">Con mención</option><option value="no">Sin mención</option></select></label>
     <button class="chip" id="freset" type="button">Ver todo</button>
     <span class="fsum" id="fsum"></span>
   </div>
   <p class="err" id="err" hidden></p>
   <section class="kpis" id="kpis"></section>
-  <div class="grid">
-    <section class="card"><h2>OTs por día</h2><p class="h">Correos recibidos en el periodo, por fecha</p><div class="fig" id="fig"><svg id="svg" role="img" aria-label="OTs por día"><defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg></div></section>
-    <section class="card"><h2>OTs por sucursal</h2><p class="h">Toca una sucursal para filtrar la tabla</p><div class="bars" id="bars"></div></section>
-  </div>
   <section class="card" style="margin-top:16px">
-    <div class="tools"><h2 style="margin:0">Detalle de órdenes</h2><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span id="chip"></span><input id="q" type="search" placeholder="Buscar cliente, OT, sucursal, ID MCA…" aria-label="Buscar"></div></div>
-    <div class="scroll"><table class="stack"><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table></div>
+    <div class="tools"><h2 style="margin:0">Detalle de detonaciones</h2><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span id="chip"></span><input id="q" type="search" placeholder="Buscar cliente, OT, sucursal, persona…" aria-label="Buscar"></div></div>
+    <div class="md"><div class="ocol"><div class="seg3" id="oseg" role="group" aria-label="Filtrar por mención"><button data-v="">Todas <span id="cA"></span></button><button data-v="si"><i class="led g"></i>Con mención <span id="cS"></span></button><button data-v="no"><i class="led y"></i>Sin mención <span id="cN"></span></button></div><label class="sc osl">Ordenar por<select id="osort" class="win"><option value="dtot">Días totales</option><option value="dmen">Días hasta mención</option><option value="det">Detonación más reciente</option><option value="cli">Cliente (A-Z)</option></select></label><div class="olist" id="olist" role="listbox" aria-label="Lista de OTs" tabindex="0"></div></div><article class="ficha" id="oficha" aria-live="polite"></article></div>
     <p class="note" id="note"></p>
   </section>
+  <div class="grid g2">
+    <section class="card"><h2>Detonaciones por sucursal</h2><p class="h">Toca una sucursal para filtrar la tabla</p><div class="bars" id="bars"></div></section>
+    <section class="card"><h2>Menciones por persona</h2><p class="h">Quién fue arrobado en la 1ra mención · toca para filtrar</p><div class="bars" id="ppl"></div></section>
+  </div>
+  <section class="card wide"><h2>Antigüedad de cada OT</h2><p class="h">Días totales de cada OT, de la más antigua a la más reciente · toca una barra para verla en la tabla</p>
+    <div class="ageh"><div class="leg"><span><i style="background:#3ee8ff"></i>Con 1ra mención</span><span><i style="background:#f4fbff"></i>Sin mención</span></div>
+    <label class="sc"><input type="checkbox" id="sqrt"> Escala comprimida (para que una OT muy antigua no aplaste a las demás)</label></div>
+    <div class="fig age" id="agefig"><svg id="agesvg" role="img" aria-label="Antigüedad de cada OT en días"></svg></div></section>
+  <section class="card wide"><h2>Detonaciones en el tiempo</h2><p class="h" id="figh">Por fecha del correo</p><div class="fig" id="fig"><svg id="svg" role="img" aria-label="Detonaciones en el tiempo"></svg></div></section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 <script>
 {
 const SHEETS=['CDMX','CENTRO'];
-const SEED={"CDMX": [{"n": 1, "fecha": "2026-11-17T15:00:59", "rem": "mjpalaciosr@mcmtechco.com", "asunto": "RV: OT-425313 || GOLD TELECOM, INC || FAC-GCN-J0G-310726-DMH", "cliente": "GOLD TELECOM, INC", "id": "997-0", "plaza": "xMCM", "ot": "OT-425313"}], "CENTRO": [{"n": 1, "fecha": "2026-11-19T16:33:58", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-437398 Cemex Operaciones Mexico SA de CV // CLIENTE Directo", "cliente": "Cemex Operaciones Mexico SA de CV", "id": "106-853764-2", "plaza": "Toluca", "ot": "OT-437398"}, {"n": 2, "fecha": "2026-11-17T18:35:10", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-434834 GRUPO POSADAS S.A.B. DE C.V. (Fiesta Americana Hacienda   Ixtapan de la Sal) // CLIENTE Directo", "cliente": "GRUPO POSADAS S.A.B. DE C.V. (Fiesta Americana Hacienda Ixtapan de la Sal)", "id": "302-6183-2", "plaza": "Ixtapan de la Sal", "ot": "OT-434834"}, {"n": 3, "fecha": "2026-11-11T17:44:35", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-431559 INSTITUTO DE INFERTILIDAD Y GENETICA MEXICO S. C. //   CLIENTE Directo", "cliente": "INSTITUTO DE INFERTILIDAD Y GENETICA MEXICO S. C.", "id": "107-440795-2", "plaza": "Metepec", "ot": "OT-431559"}, {"n": 4, "fecha": "2026-11-10T19:07:49", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-435067 Corporativo Contable CYG // CLIENTE Directo", "cliente": "Corporativo Contable CYG", "id": "106-853101-3", "plaza": "Toluca", "ot": "OT-435067"}, {"n": 5, "fecha": "2026-11-06T16:39:11", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-433620 Nueva Elektra del Milenio, S.A. de C.V.   (234506_OCC_IXTLAHUACA) // CLIENTE Directo", "cliente": "FACTIBILIDAD NOMBRE Latest Site ID Latest Latitude Latest Longitude Red de Fo de conexion Hotel ID Fat/Cierre", "id": "152-12498-2", "plaza": "Ixtlahuaca", "ot": "OT-433620"}, {"n": 6, "fecha": "2026-11-05T22:42:06", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-429739 Ragar // CLIENTE Directo", "cliente": "Ragar", "id": "232-11926-3", "plaza": "Santa María Rayón", "ot": "OT-429739"}]};
-let fy='',fm='',data={},fileName='correos_20261123_1526.xlsx',view='TODAS',plaza=null,q='',sortK='fecha',sortD=-1;
+const SEED={"CDMX": [{"fecha": "2026-11-03T10:43:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-434666 || KSMV CAPITAL SAPI DE CV || FAC-MCA-TZS-291026-DCU", "cliente": "KSMV CAPITAL SAPI DE CV", "id": "555-10031-2", "plaza": "Cuauhtémoc", "ot": "OT-434666", "men": null, "fmen": "", "dmen": null, "dtot": 21}, {"fecha": "2026-11-24T15:53:21", "rem": "elimartinezp@mcmtechco.com", "asunto": "RV: OT-374496|| FAC-MCM-ENY-140525-MAR GEPP Cedis Maravatio BFB 50   Mbps|| GEPP CORPORATIVO SANTA FE|| TLAHUAC", "cliente": null, "id": null, "plaza": null, "ot": "OT-374496", "men": null, "fmen": "", "dmen": null, "dtot": 519}, {"fecha": "2026-11-19T10:04:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-428675 || APOTEX MEXICO || FAC-MCA-HI6-070926-CUI", "cliente": "APOTEX MEXICO", "id": "457-30248", "plaza": null, "ot": "OT-428675", "men": null, "fmen": "", "dmen": null, "dtot": 5}, {"fecha": "2026-10-30T12:09:00", "rem": "nnoya@mcmtechco.com", "asunto": "RV: OT-430831 // SOCIAL NATION", "cliente": "SOCIAL NATION", "id": "529-4954-3", "plaza": "Benito Juárez CDMX", "ot": "OT-430831", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-17T15:25:00", "dmen": 18, "dtot": 25}, {"fecha": "2026-10-07T14:23:00", "rem": "nnoya@mcmtechco.com", "asunto": "RV: OT-430254 // GRUPO CONSULTOR SICC - Ecatepec", "cliente": "GRUPO CONSULTOR SICC", "id": "540-74859-3", "plaza": null, "ot": "OT-430254", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-17T14:06:00", "dmen": 41, "dtot": 48}, {"fecha": "2026-09-15T12:58:00", "rem": "nnoya@mcmtechco.com", "asunto": "RV: OT-428229 // Compass Solutions", "cliente": "Compass Solutions", "id": "997-0", "plaza": "xMCM", "ot": "OT-428229", "men": "SÍ: @Diana Perez, @David Gibran, @Grupo equipo", "fmen": "2026-10-22T09:53:00", "dmen": 37, "dtot": 70}, {"fecha": "2026-11-20T18:00:00", "rem": "elimartinezp@mcmtechco.com", "asunto": "RV: OT-434684 | FAC-MCM-IHB-291026-DGM | TELEMUNDO | IDE 500 Mbps", "cliente": "TELEMUNDO", "id": "997-0", "plaza": "xMCM", "ot": "OT-434684", "men": null, "fmen": "", "dmen": null, "dtot": 4}, {"fecha": "2026-11-23T23:34:14", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: REDETONACIÓN: OT-383470 || INGERSOL ||", "cliente": null, "id": null, "plaza": null, "ot": "OT-383470", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-18T16:56:00", "dmen": 22, "dtot": 28}, {"fecha": "2026-11-20T11:15:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-432953 || Ingenieria Condor SA de CV || FAC-MCA-VYG-081026-CUI", "cliente": "Ingenieria Condor SA de CV", "id": "417-67162-3", "plaza": null, "ot": "OT-432953", "men": null, "fmen": "", "dmen": null, "dtot": 4}, {"fecha": "2026-11-06T14:36:00", "rem": "erlopezlu@mcmtechco.com", "asunto": "RV: DETONACION // OT-433445 // Grupo Vanguardia en Información y Conocimiento SA de CV -Calz. de Tlalpan // 764432", "cliente": "Grupo Vanguardia en Informacion y Conocimiento SA de CV", "id": "529-5005-2", "plaza": "Benito Juárez CDMX", "ot": "OT-433445", "men": "SÍ: @Carlos Jardon, @Grupo equipo", "fmen": "2026-11-19T11:31:00", "dmen": 13, "dtot": 18}, {"fecha": "2026-10-23T10:21:00", "rem": "rgonzalezp@mcmtechco.com", "asunto": "RV: OT-431203 // FAC-MCA-X2O-180926-DMH // GRUPO SAMSUNG E&A MÉXICO", "cliente": "GRUPO SAMSUNG E&A MÉXICO", "id": "401-26631-3", "plaza": "Miguel Hidalgo", "ot": "OT-431203", "men": "SÍ: @Grupo equipo", "fmen": "2026-11-17T09:30:00", "dmen": 25, "dtot": 32}, {"fecha": "2026-10-20T22:23:00", "rem": "dabolanos@mcmtechco.com", "asunto": "RV: OT-432912 || REGALOS SIGLO XXI || FAC-MCA-552-070926-TTL", "cliente": "REGALOS SIGLO XXI", "id": "63-160069", "plaza": "Tlalnepantla", "ot": "OT-432912", "men": "SÍ: @Diana Perez, @Grupo equipo", "fmen": "2026-11-11T16:55:00", "dmen": 22, "dtot": 35}, {"fecha": "2026-10-30T11:21:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-431456 || Grupo ZD Logística || FAC-MCA-RT9-021026-DVC", "cliente": "Grupo ZD Logística", "id": "473-52916-8", "plaza": "Venustiano Carranza", "ot": "OT-431456", "men": null, "fmen": "", "dmen": null, "dtot": 25}, {"fecha": "2026-10-19T10:29:00", "rem": "fvillanuevam@mcmtechco.com", "asunto": "RV: OT-431767 || Hotel Embassy || FAC-MCA-3QX-071026-DCU", "cliente": "Hotel Embassy", "id": "555-9821-3", "plaza": "Cuauhtémoc", "ot": "OT-431767", "men": "SÍ: @Cristian Jaime", "fmen": "2026-11-04T16:01:00", "dmen": 16, "dtot": 36}, {"fecha": "2026-11-20T18:00:00", "rem": "elimartinezp@mcmtechco.com", "asunto": "RV: OT-434684 | FAC-MCM-IHB-291026-DGM | TELEMUNDO | IDE 500 Mbps", "cliente": "TELEMUNDO", "id": "997-0", "plaza": "xMCM", "ot": "OT-434684", "men": null, "fmen": "", "dmen": null, "dtot": 4}, {"fecha": "2026-08-13T12:51:00", "rem": "mjpalaciosr@mcmtechco.com", "asunto": "RV: OT-425313 || GOLD TELECOM, INC || FAC-GCN-J0G-310726-DMH", "cliente": "GOLD TELECOM, INC", "id": "997-0", "plaza": "xMCM", "ot": "OT-425313", "men": null, "fmen": "", "dmen": null, "dtot": 103}], "CENTRO": [{"fecha": "2026-11-19T10:33:28", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-437398 Cemex Operaciones Mexico SA de CV // CLIENTE Directo", "cliente": "Cemex Operaciones Mexico SA de CV", "id": "106-853764-2", "plaza": "Toluca", "ot": "OT-437398", "men": null, "fmen": "", "dmen": null, "dtot": 5}, {"fecha": "2026-11-17T12:34:56", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-434834 GRUPO POSADAS S.A.B. DE C.V. (Fiesta Americana Hacienda   Ixtapan de la Sal) // CLIENTE Directo", "cliente": "GRUPO POSADAS S.A.B. DE C.V. (Fiesta Americana Hacienda Ixtapan de la Sal)", "id": "302-6183-2", "plaza": "Ixtapan de la Sal", "ot": "OT-434834", "men": null, "fmen": "", "dmen": null, "dtot": 7}, {"fecha": "2026-11-11T11:44:14", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-431559 INSTITUTO DE INFERTILIDAD Y GENETICA MEXICO S. C. //   CLIENTE Directo", "cliente": "INSTITUTO DE INFERTILIDAD Y GENETICA MEXICO S. C.", "id": "107-440795-2", "plaza": "Metepec", "ot": "OT-431559", "men": null, "fmen": "", "dmen": null, "dtot": 13}, {"fecha": "2026-11-10T13:07:23", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-435067 Corporativo Contable CYG // CLIENTE Directo", "cliente": "Corporativo Contable CYG", "id": "106-853101-3", "plaza": "Toluca", "ot": "OT-435067", "men": null, "fmen": "", "dmen": null, "dtot": 14}, {"fecha": "2026-11-05T16:41:41", "rem": "jorge.moreno@mcmtechco.com", "asunto": "RV: OT-429739 Ragar // CLIENTE Directo", "cliente": "Ragar", "id": "232-11926-3", "plaza": "Santa María Rayón", "ot": "OT-429739", "men": null, "fmen": "", "dmen": null, "dtot": 19}]};
+let fy='',fm='',fmen='',data={},dups=0,fileName='correos_20261124_1009.xlsx',view='TODAS',plaza=null,person=null,q='',sortK='dtot',sortD=-1;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const MESL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const fmtD=d=>d?`${d.getDate()} ${MES[d.getMonth()]} ${d.getFullYear()}`:'—';
 const fmtDT=d=>d?`${fmtD(d)} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`:'—';
 const dayKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const suspicious=c=>!c||/FACTIBILIDAD|Latitude|Longitude|Site ID/i.test(c);
-function cleanClient(r){if(!suspicious(r.cliente))return r.cliente;const m=String(r.asunto||'').match(/OT-\d+\s*(?:\|\|)?\s*(.+?)\s*(?:\/\/|\|\||$)/);return m?m[1].replace(/\s+/g,' ').trim():(r.cliente||'');}
-function norm(rows,sheet){return rows.filter(r=>r.asunto||r.ot).map(r=>{const d=r.fecha instanceof Date?r.fecha:(r.fecha?new Date(r.fecha):null);const x={sheet,fecha:d&&!isNaN(d)?d:null,rem:r.rem||'',asunto:r.asunto||'',cliente:r.cliente||'',id:r.id||'',plaza:(r.plaza||'Sin sucursal').toString().trim(),ot:r.ot||''};x.fixed=suspicious(x.cliente);x.cli=cleanClient(x);return x;});}
-function loadSeed(){for(const s of SHEETS)data[s]=norm(SEED[s]||[],s);}
-function pick(o,names){const k=Object.keys(o).find(k=>names.includes(k.trim().toLowerCase()));return k?o[k]:'';}
+const toDate=v=>{if(!v)return null;const d=v instanceof Date?v:new Date(v);return isNaN(d)?null:d;};
+const toNum=v=>v===''||v==null||isNaN(+v)?null:+v;
+const bad=c=>!c||/FACTIBILIDAD|Latitude|Longitude|Site ID/i.test(c);
+function clientFromSubject(a){
+  for(let seg of String(a||'').split(/\|\||\/\/|\|/)){
+    seg=seg.replace(/^\s*(RV|RE|FW|FWD)\s*:\s*/i,'').replace(/^\s*(RE)?DETONACI[OÓ]N\s*:?\s*/i,'').replace(/OT-\d+\s*/i,'').replace(/\s+/g,' ').trim();
+    if(!seg||/^FAC-/i.test(seg)||/cliente directo/i.test(seg)||/^\d+$/.test(seg))continue;
+    return seg;}
+  return '';}
+function parseMen(v){const t=String(v||'').trim();if(!t||/^no\b/i.test(t))return {si:false,ppl:[]};
+  const ppl=(t.match(/@[^,@]+/g)||[]).map(x=>x.slice(1).trim()).filter(Boolean);return {si:/^s[ií]/i.test(t)||ppl.length>0,ppl};}
+function norm(rows,sheet){const seen=new Set(),out=[];
+  rows.forEach(r=>{if(!r.asunto&&!r.ot)return;const f=toDate(r.fecha);const key=`${r.ot}|${f?f.getTime():''}`;if(r.ot&&seen.has(key)){dups++;return;}seen.add(key);
+    const m=parseMen(r.men);const x={sheet,fecha:f,rem:r.rem||'',asunto:r.asunto||'',cliente:r.cliente||'',id:r.id||'',plaza:(r.plaza||'').toString().trim()||'Sin sucursal',ot:r.ot||'',men:m.si,ppl:m.ppl,menTxt:r.men||'',fmen:toDate(r.fmen),dmen:toNum(r.dmen),dtot:toNum(r.dtot)};
+    x.fixed=bad(x.cliente);x.cli=x.fixed?(clientFromSubject(x.asunto)||'Sin cliente'):x.cliente;out.push(x);});
+  return out;}
+function loadSeed(){dups=0;for(const s of SHEETS)data[s]=norm(SEED[s]||[],s);}
+const nk=k=>k.normalize('NFD').replace(/[̀-ͯ]/g,'').trim().toLowerCase();
+function pick(o,names){const k=Object.keys(o).find(k=>names.includes(nk(k)));return k?o[k]:'';}
 function readFile(f){
   $('err').hidden=true;
-  if(typeof XLSX==='undefined'){showErr('No se pudo cargar el lector de Excel (sin conexión a cdnjs).');return;}
+  if(typeof XLSX==='undefined'){showErr('No se pudo cargar el lector de Excel (revisa tu conexión a internet).');return;}
   const rd=new FileReader();
   rd.onload=e=>{try{
-    const wb=XLSX.read(e.target.result,{type:'array',cellDates:true});
-    const found={};
+    const wb=XLSX.read(e.target.result,{type:'array',cellDates:true});const found={};dups=0;
     for(const s of SHEETS){const name=wb.SheetNames.find(n=>n.trim().toUpperCase()===s);if(!name)continue;
       const rows=XLSX.utils.sheet_to_json(wb.Sheets[name],{defval:''});
-      found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot'])})),s);}
+      found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot']),men:pick(o,['1ra mencion','primera mencion','mencion']),fmen:pick(o,['fecha 1ra mencion','fecha primera mencion','fecha mencion']),dmen:pick(o,['dias hasta mencion']),dtot:pick(o,['dias totales ot','dias totales'])})),s);}
     if(!Object.keys(found).length){showErr('El archivo no tiene pestañas llamadas CDMX ni CENTRO.');return;}
-    data={CDMX:found.CDMX||[],CENTRO:found.CENTRO||[]};fileName=f.name;plaza=null;render();
+    data={CDMX:found.CDMX||[],CENTRO:found.CENTRO||[]};fileName=f.name;plaza=null;person=null;render();
   }catch(err){showErr('No se pudo leer el archivo: '+err.message);}};
-  rd.readAsArrayBuffer(f);
-}
+  rd.readAsArrayBuffer(f);}
 function showErr(m){$('err').textContent=m;$('err').hidden=false;}
-const MESL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-function inPeriod(r){if(!fy&&!fm)return true;if(!r.fecha)return false;return (!fy||r.fecha.getFullYear()==fy)&&(!fm||r.fecha.getMonth()+1==fm);}
+function inPeriod(r){if(fmen&&(fmen==='si')!==r.men)return false;if(!fy&&!fm)return true;if(!r.fecha)return false;return (!fy||r.fecha.getFullYear()==fy)&&(!fm||r.fecha.getMonth()+1==fm);}
 function rowsFor(){return (view==='TODAS'?[...data.CDMX,...data.CENTRO]:data[view]).filter(inPeriod);}
 function renderFilters(){
   const all=[...data.CDMX,...data.CENTRO].filter(r=>r.fecha);
-  const ys=[...new Set(all.map(r=>r.fecha.getFullYear()))].sort((a,b)=>b-a);
-  if(fy&&!ys.includes(+fy))fy='';
-  const ms=[...new Set(all.filter(r=>!fy||r.fecha.getFullYear()==fy).map(r=>r.fecha.getMonth()+1))].sort((a,b)=>a-b);
-  if(fm&&!ms.includes(+fm))fm='';
+  const ys=[...new Set(all.map(r=>r.fecha.getFullYear()))].sort((a,b)=>b-a);if(fy&&!ys.includes(+fy))fy='';
+  const ms=[...new Set(all.filter(r=>!fy||r.fecha.getFullYear()==fy).map(r=>r.fecha.getMonth()+1))].sort((a,b)=>a-b);if(fm&&!ms.includes(+fm))fm='';
   $('fy').innerHTML='<option value="">Todos</option>'+ys.map(y=>`<option value="${y}"${y==fy?' selected':''}>${y}</option>`).join('');
   $('fm').innerHTML='<option value="">Todos</option>'+ms.map(m=>`<option value="${m}"${m==fm?' selected':''}>${MESL[m-1]}</option>`).join('');
-  $('fsum').textContent=(fy||fm)?`Periodo: ${fm?MESL[fm-1]+' ':''}${fy||'(todos los años)'}`:'Periodo: todo el archivo';
-}
+  $('fmen').value=fmen;
+  $('fsum').textContent=(fy||fm)?`Periodo: ${fm?MESL[fm-1]+' ':''}${fy||'(todos los años)'}`:'Periodo: todo el archivo';}
 function renderTabs(){const c=k=>data[k].filter(inPeriod).length;const t=[['TODAS','Ambas',c('CDMX')+c('CENTRO')],['CDMX','CDMX',c('CDMX')],['CENTRO','Centro',c('CENTRO')]];
   $('tabs').innerHTML=t.map(([k,l,n])=>`<button class="tab" role="tab" aria-selected="${k===view}" data-k="${k}">${l} · ${n}</button>`).join('');}
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+const f1=v=>v==null?'—':(Math.round(v*10)/10).toLocaleString('es-MX');
 function renderKpis(rows){
-  const cl=new Set(rows.map(r=>r.cli.toLowerCase())).size,pl=new Set(rows.map(r=>r.plaza)).size;
-  const ds=rows.map(r=>r.fecha).filter(Boolean).sort((a,b)=>a-b);const last=ds[ds.length-1],first=ds[0];
-  const rem=new Set(rows.map(r=>r.rem)).size;
-  $('kpis').innerHTML=[['Detonaciones',rows.length,`${rem} remitente${rem===1?'':'s'}`],['Clientes únicos',cl,'por nombre de cliente'],['Sucursales',pl,view==='TODAS'?'en ambas pestañas':'en '+(view==='CDMX'?'CDMX':'Centro')],['Último correo',last?fmtD(last):'—',first?`desde ${fmtD(first)}`:'']]
+  const si=rows.filter(r=>r.men),no=rows.filter(r=>!r.men);
+  const dm=si.map(r=>r.dmen).filter(v=>v!=null),dt=rows.map(r=>r.dtot).filter(v=>v!=null);
+  const oldNo=Math.max(...no.map(r=>r.dtot??0),0),pl=new Set(rows.map(r=>r.plaza)).size;
+  const pct=rows.length?Math.round(si.length/rows.length*100):0;
+  $('kpis').innerHTML=[
+   ['Detonaciones',rows.length,`${pl} sucursal${pl===1?'':'es'}`],
+   ['Con 1ra mención',si.length,`${pct}% del total`],
+   ['Sin mención',no.length,no.length?`la más antigua: ${oldNo} días`:'todas atendidas'],
+   ['Prom. días hasta mención',f1(avg(dm)),dm.length?`máx. ${Math.max(...dm)} días`:'sin datos'],
+   ['Prom. días totales OT',f1(avg(dt)),dt.length?`máx. ${Math.max(...dt)} días`:'sin datos']]
    .map(([a,b,c])=>`<div class="kpi"><span>${a}</span><strong>${esc(b)}</strong><small>${esc(c)}</small></div>`).join('');}
-function renderBars(rows){
-  const m={};rows.forEach(r=>m[r.plaza]=(m[r.plaza]||0)+1);const a=Object.entries(m).sort((x,y)=>y[1]-x[1]);const mx=Math.max(1,...a.map(x=>x[1]));
-  $('bars').innerHTML=a.length?a.map(([p,n])=>`<button class="bar${p===plaza?' sel':''}" data-p="${esc(p)}" aria-pressed="${p===plaza}"><span class="nm" title="${esc(p)}">${esc(p)}</span><i style="width:${n/mx*100}%"></i><em>${n}</em></button>`).join(''):'<p class="empty">Sin datos</p>';}
+function barRows(el,entries,sel,attr,cls=()=>''){const mx=Math.max(1,...entries.map(x=>x[1]));
+  el.innerHTML=entries.length?entries.map(([p,n,lab,tip])=>`<button class="bar${p===sel?' sel':''}${cls(p)}" data-${attr}="${esc(p)}" aria-pressed="${p===sel}" title="${esc(tip||p)}"><span class="nm">${esc(lab||p)}</span><i style="width:${n/mx*100}%"></i><em>${n}</em></button>`).join(''):'<p class="empty">Sin datos</p>';}
+function renderBars(rows){const m={};rows.forEach(r=>m[r.plaza]=(m[r.plaza]||0)+1);barRows($('bars'),Object.entries(m).sort((x,y)=>y[1]-x[1]),plaza,'p');}
+let ageRows=[],trkRows=[],REF=null;
+const DAY=864e5;
+function enrich(){
+  const m=String(fileName).match(/(20\d{2})(\d{2})(\d{2})/);
+  const all=[...data.CDMX,...data.CENTRO];
+  if(m)REF=new Date(+m[1],+m[2]-1,+m[3],23,59);else{const ds=all.flatMap(r=>[r.fecha,r.fmen]).filter(Boolean);REF=ds.length?new Date(Math.max(...ds)):new Date();}
+  all.forEach(r=>{let d=null,src='correo';
+    if(r.fmen&&r.dmen!=null){d=new Date(r.fmen.getTime()-r.dmen*DAY);src='mención';}
+    else if(r.dtot!=null){d=new Date(REF.getTime()-r.dtot*DAY);d.setHours(r.fecha?r.fecha.getHours():12,r.fecha?r.fecha.getMinutes():0);src='días totales';}
+    else d=r.fecha;
+    r.det=d;r.reenv=!!(r.fecha&&d&&Math.abs(r.fecha-d)>1.5*DAY);r.detSrc=src;});
+}
+function renderAge(rows){ageRows=rows.filter(r=>r.dtot!=null).sort((x,y)=>y.dtot-x.dtot);drawAge();}
+function drawAge(){
+  const s=$('agesvg'),W=s.clientWidth,H=s.clientHeight;if(!W)return;const a=ageRows;
+  if(!a.length){s.innerHTML=`<text x="${W/2}" y="${H/2}" fill="#9a9ca3" text-anchor="middle" font-size="14">Sin datos de días totales</text>`;return;}
+  const sq=$('sqrt').checked,f=v=>sq?Math.sqrt(v):v,narrow=W<520;
+  const mx=Math.max(1,...a.map(r=>r.dtot));const L=narrow?30:40,R=8,T=38,B=narrow?78:70,iw=W-L-R,ih=H-T-B,bw=iw/a.length;
+  const y=v=>T+ih-f(v)/f(mx)*ih;let g='';
+  const raw=sq?[0,10,50,100,250,500,1000].filter(v=>v<=mx*1.05):(()=>{const st=Math.max(1,Math.ceil(mx/5/10)*10);const t=[];for(let v=0;v<=mx;v+=st)t.push(v);return t;})();
+  raw.forEach(v=>g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2c2e33"/><text x="${L-6}" y="${y(v)+4}" fill="#9a9ca3" font-size="12" text-anchor="end">${v}</text>`);
+  const w=Math.max(3,Math.min(56,bw*.7)),fs=narrow||bw<34?10:12;
+  a.forEach((r,i)=>{const cx=L+i*bw+bw/2,top=y(r.dtot),c=r.men?'#3ee8ff':'#f4fbff';
+    g+=`<rect filter="url(#glow2)" data-o="${esc(r.ot)}" x="${cx-w/2}" y="${top}" width="${w}" height="${Math.max(1,T+ih-top)}" fill="${c}" rx="3"><title>${esc(r.ot)} · ${esc(r.cli)} · ${r.dtot} días${r.men?' · con mención':' · sin mención'}</title></rect>`;
+    if(bw>=14)g+=`<text x="${cx}" y="${top-6}" fill="${c}" font-size="${fs}" font-weight="600" text-anchor="middle">${r.dtot}</text>`;
+    const lab=narrow?String(r.ot).replace('OT-',''):r.ot;
+    g+=`<text transform="translate(${cx+4},${T+ih+10}) rotate(-55)" fill="#9a9ca3" font-size="${fs}" text-anchor="end">${esc(lab)}</text>`;});
+  g+=`<text x="${L}" y="12" fill="#9a9ca3" font-size="12">Días</text>`;
+  s.innerHTML='<defs><filter id="glow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'+g;}
+function renderPpl(rows){const m={};rows.forEach(r=>r.ppl.forEach(p=>m[p]=(m[p]||0)+1));barRows($('ppl'),Object.entries(m).sort((x,y)=>y[1]-x[1]),person,'u');}
 function drawChart(){
   const s=$('svg'),W=s.clientWidth,H=s.clientHeight;if(!W)return;const rows=rowsFor();
   const ds=rows.map(r=>r.fecha).filter(Boolean);if(!ds.length){s.innerHTML=`<text x="${W/2}" y="${H/2}" fill="#9a9ca3" text-anchor="middle" font-size="14">Sin fechas</text>`;return;}
   const t0=new Date(Math.min(...ds));t0.setHours(0,0,0,0);const t1=new Date(Math.max(...ds));t1.setHours(0,0,0,0);
-  const days=[];for(let d=new Date(t0);d<=t1;d.setDate(d.getDate()+1))days.push(new Date(d));
-  if(days.length<7){const p=new Date(days[0]);while(days.length<7){p.setDate(p.getDate()-1);days.unshift(new Date(p));}}
-  const cnt={};const per={CDMX:{},CENTRO:{}};rows.forEach(r=>{if(!r.fecha)return;const k=dayKey(r.fecha);cnt[k]=(cnt[k]||0)+1;per[r.sheet][k]=(per[r.sheet][k]||0)+1;});
-  const mx=Math.max(1,...Object.values(cnt));const L=28,R=8,T=12,B=30,iw=W-L-R,ih=H-T-B,bw=iw/days.length;
-  const y=v=>T+ih-v/mx*ih;let g='';
+  const span=(t1-t0)/864e5,wk=span>45;
+  const start=d=>{const x=new Date(d);x.setHours(0,0,0,0);if(wk){x.setDate(x.getDate()-((x.getDay()+6)%7));}return x;};
+  const bins=[];for(let d=start(t0);d<=t1;d.setDate(d.getDate()+(wk?7:1)))bins.push(new Date(d));
+  if(!wk&&bins.length<7){const p=new Date(bins[0]);while(bins.length<7){p.setDate(p.getDate()-1);bins.unshift(new Date(p));}}
+  $('figh').textContent=wk?'Por semana (lunes) según la fecha del correo':'Por día según la fecha del correo';
+  const per={CDMX:{},CENTRO:{}},tot={};rows.forEach(r=>{if(!r.fecha)return;const k=dayKey(start(r.fecha));per[r.sheet][k]=(per[r.sheet][k]||0)+1;tot[k]=(tot[k]||0)+1;});
+  const mx=Math.max(1,...Object.values(tot));const L=28,R=8,T=22,B=30,iw=W-L-R,ih=H-T-B,bw=iw/bins.length;const y=v=>T+ih-v/mx*ih;let g='';
   for(let v=0;v<=mx;v+=Math.max(1,Math.ceil(mx/4)))g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2c2e33"/><text x="${L-8}" y="${y(v)+4}" fill="#9a9ca3" font-size="12" text-anchor="end">${v}</text>`;
-  const step=Math.ceil(days.length/(W<520?4:8));
-  days.forEach((d,i)=>{const k=dayKey(d),x=L+i*bw,w=Math.max(2,bw-Math.min(6,bw*.25));const a=per.CENTRO[k]||0,b=per.CDMX[k]||0;
-    if(a)g+=`<rect x="${x+(bw-w)/2}" y="${y(a)}" width="${w}" height="${ih-(y(a)-T)}" fill="#3ee8ff" rx="2"><title>${fmtD(d)} · Centro: ${a}</title></rect>`;
-    if(b)g+=`<rect x="${x+(bw-w)/2}" y="${y(a+b)}" width="${w}" height="${y(a)-y(a+b)}" fill="#f4fbff" rx="2"><title>${fmtD(d)} · CDMX: ${b}</title></rect>`;
+  const step=Math.ceil(bins.length/(W<520?4:8));
+  bins.forEach((d,i)=>{const k=dayKey(d),x=L+i*bw,w=Math.max(2,bw-Math.min(6,bw*.25));const a=per.CENTRO[k]||0,b=per.CDMX[k]||0,lab=(wk?'Semana del ':'')+fmtD(d);
+    if(a)g+=`<rect filter="url(#glow)" x="${x+(bw-w)/2}" y="${y(a)}" width="${w}" height="${ih-(y(a)-T)}" fill="#3ee8ff" rx="2"><title>${lab} · Centro: ${a}</title></rect>`;
+    if(b)g+=`<rect filter="url(#glow)" x="${x+(bw-w)/2}" y="${y(a+b)}" width="${w}" height="${y(a)-y(a+b)}" fill="#f4fbff" rx="2"><title>${lab} · CDMX: ${b}</title></rect>`;
     if(i%step===0)g+=`<text x="${x+bw/2}" y="${H-10}" fill="#9a9ca3" font-size="12" text-anchor="middle">${d.getDate()} ${MES[d.getMonth()]}</text>`;});
-  if(view==='TODAS')g+=`<g font-size="12" fill="#f4fbff"><rect x="${W-R-150}" y="${T}" width="10" height="10" fill="#3ee8ff"/><text x="${W-R-135}" y="${T+9}">Centro</text><rect x="${W-R-75}" y="${T}" width="10" height="10" fill="#f4fbff"/><text x="${W-R-60}" y="${T+9}">CDMX</text></g>`;
-  s.innerHTML='<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g>'+g.replace(/<rect /g,'<rect filter="url(#glow)" ')+'</g>';}
-const COLS=[['ot','OT'],['fecha','Fecha'],['cli','Cliente'],['plaza','Sucursal'],['id','ID MCA'],['sheet','Pestaña'],['rem','Remitente'],['asunto','Asunto']];
+  if(view==='TODAS')g+=`<g font-size="12" fill="#f4fbff"><rect x="${W-R-150}" y="2" width="10" height="10" fill="#3ee8ff"/><text x="${W-R-135}" y="11">Centro</text><rect x="${W-R-75}" y="2" width="10" height="10" fill="#f4fbff"/><text x="${W-R-60}" y="11">CDMX</text></g>`;
+  s.innerHTML='<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'+g;}
+let selOT=null;
+const SORTS={dtot:['dtot',-1],det:['det',-1],dmen:['dmen',-1],cli:['cli',1]};
+function stepper(x){
+  const hot=!x.men&&(x.dtot??0)>=15;let h='<ol class="stp">';
+  h+=`<li class="st det"><span class="dot"></span><div><b>Detonación</b><span>${fmtDT(x.det)}</span>${x.reenv?`<small>Calculada con ${x.detSrc==='mención'?'fecha de mención − días hasta mención':'fecha de corte − días totales'}</small>`:''}</div></li>`;
+  if(x.men&&x.fmen){
+    h+=`<li class="seg b"><span class="ln"></span><div><b class="c">${x.dmen??'?'} días</b><span>hasta la 1ra mención</span></div></li>`;
+    h+=`<li class="st men"><span class="dot"></span><div><b class="c">1ra mención</b><span>${fmtDT(x.fmen)}</span>${x.ppl.length?`<div class="tags">${x.ppl.map(p=>`<em>@${esc(p)}</em>`).join('')}</div>`:''}</div></li>`;
+    const rest=x.dtot!=null&&x.dmen!=null?x.dtot-x.dmen:null;
+    h+=`<li class="seg g"><span class="ln"></span><div><b>${rest??'—'} días</b><span>desde la mención</span></div></li>`;
+    h+=`<li class="st cut"><span class="dot"></span><div><b>Corte ${fmtD(REF)}</b><span><b class="big">${x.dtot??'—'}</b> días totales</span></div></li>`;
+  }else{
+    h+=`<li class="seg ${hot?'r':'w'}"><span class="ln"></span><div><b class="${hot?'r':''}">${x.dtot??'—'} días</b><span>sin 1ra mención</span></div></li>`;
+    h+=`<li class="st cut ${hot?'hot':''}"><span class="dot"></span><div><b class="${hot?'r':''}">Pendiente de 1ra mención</b><span>Corte ${fmtD(REF)} · <b class="big ${hot?'r':''}">${x.dtot??'—'}</b> días totales</span></div></li>`;
+  }
+  return h+'</ol>';}
+function ficha(x){
+  if(!x)return '<div class="fempty">Elige una OT de la lista para ver su línea de tiempo.</div>';
+  return `<div class="fh"><span class="mono">${esc(x.ot)}</span><span class="badge ${x.men?'b-si':'b-no'}"><i class="led ${x.men?'g':'y'}" style="width:8px;height:8px;margin-right:6px;vertical-align:0"></i>${x.men?'Con 1ra mención':'Sin mención'}</span></div>
+  <h3 class="fn">${esc(x.cli)}${x.fixed?' <span class="warn" title="Cliente tomado del asunto">*</span>':''}</h3>
+  <p class="fm">${esc(x.plaza)} · ID ${esc(x.id||'—')} · ${x.sheet==='CDMX'?'CDMX':'Centro'}</p>
+  ${stepper(x)}
+  <dl class="fd"><dt>Fecha del correo</dt><dd>${fmtDT(x.fecha)}${x.reenv?' <span class="warn">(reenvío posterior)</span>':''}</dd><dt>Remitente</dt><dd>${esc(x.rem||'—')}</dd><dt>Asunto</dt><dd>${esc(x.asunto)}</dd></dl>`;}
+let listRows=[];
 function renderTable(rows){
-  $('thead').innerHTML=COLS.map(([k,l])=>`<th><button data-s="${k}">${l}${sortK===k?(sortD>0?' ↑':' ↓'):''}</button></th>`).join('');
-  const qq=q.toLowerCase();let r=rows.filter(x=>(!plaza||x.plaza===plaza)&&(!qq||[x.ot,x.cli,x.cliente,x.plaza,x.id,x.rem,x.asunto].join(' ').toLowerCase().includes(qq)));
-  r.sort((a,b)=>{const A=a[sortK],B=b[sortK];return (A>B?1:A<B?-1:0)*sortD;});
-  $('tbody').innerHTML=r.length?r.map(x=>`<tr><td class="ot">${esc(x.ot)}</td><td class="f">${fmtDT(x.fecha)}</td><td>${esc(x.cli)}${x.fixed?' <span class="warn" title="El campo Cliente del Excel no era un nombre válido; se tomó del asunto">*</span>':''}</td><td>${esc(x.plaza)}</td><td class="f">${esc(x.id)}</td><td>${x.sheet==='CDMX'?'CDMX':'Centro'}</td><td>${esc(x.rem)}</td><td class="as">${esc(x.asunto)}</td></tr>`).join(''):`<tr><td colspan="8" class="empty">No hay órdenes con ese filtro</td></tr>`;
-  $('chip').innerHTML=plaza?`<button class="chip" id="clr">Sucursal: ${esc(plaza)} ✕</button>`:'';
-  const fx=rows.some(x=>x.fixed);$('note').innerHTML=`Mostrando ${r.length} de ${rows.length}.`+(fx?' <span class="warn">*</span> Cliente tomado del asunto porque la celda del Excel traía texto ajeno.':'');}
-function render(){renderFilters();const rows=rowsFor();$('sub').textContent=`Archivo: ${fileName} · pestañas CDMX y CENTRO`;renderTabs();renderKpis(rows);renderBars(rows);drawChart();renderTable(rows);
+  const [k,d]=SORTS[$('osort').value]||SORTS.dtot;
+  const qq=q.toLowerCase();let r=rows.filter(x=>(!plaza||x.plaza===plaza)&&(!person||x.ppl.includes(person))&&(!qq||[x.ot,x.cli,x.cliente,x.plaza,x.id,x.rem,x.asunto,x.menTxt].join(' ').toLowerCase().includes(qq)));
+  r.sort((a,b)=>{const A=a[k],B=b[k];if(A==null||A==='')return 1;if(B==null||B==='')return -1;return (A>B?1:A<B?-1:0)*d;});
+  {const base=(view==='TODAS'?[...data.CDMX,...data.CENTRO]:data[view]).filter(x=>{const f=fmen;fmen='';const ok=inPeriod(x);fmen=f;return ok;});
+   $('cA').textContent=base.length;$('cS').textContent=base.filter(x=>x.men).length;$('cN').textContent=base.filter(x=>!x.men).length;
+   for(const b of document.querySelectorAll('#oseg button'))b.setAttribute('aria-pressed',b.dataset.v===fmen);}
+  listRows=r;if(!r.some(x=>x.ot===selOT))selOT=r[0]?.ot??null;
+  $('olist').innerHTML=r.length?r.map(x=>{const hot=!x.men&&(x.dtot??0)>=15;return `<button class="oi${x.ot===selOT?' sel':''}" data-o="${esc(x.ot)}" role="option" aria-selected="${x.ot===selOT}"><span class="oc"><span class="mono">${esc(x.ot)}</span><span class="ocl">${esc(x.cli)}</span><span class="ops">${esc(x.plaza)}</span></span><span class="od${hot?' r':''}">${x.dtot??'—'} d<i class="led ${x.men?'g':'y'}" title="${x.men?'Con 1ra mención':'Sin mención'}"></i></span></button>`;}).join(''):'<p class="empty">No hay detonaciones con ese filtro</p>';
+  $('oficha').innerHTML=ficha(r.find(x=>x.ot===selOT));
+  $('chip').innerHTML=(plaza?`<button class="chip" data-clr="p">Sucursal: ${esc(plaza)} ✕</button> `:'')+(person?`<button class="chip" data-clr="u">Persona: ${esc(person)} ✕</button>`:'');
+  const fx=rows.some(x=>x.fixed);
+  $('note').innerHTML=`Mostrando ${r.length} de ${rows.length}.`+(fx?' <span class="warn">*</span> Cliente tomado del asunto porque la celda venía vacía o con texto ajeno.':'')+(dups?` Se omitieron ${dups} fila${dups===1?'':'s'} duplicada${dups===1?'':'s'} (misma OT y fecha).`:'')+' Días en rojo: OTs sin mención con 15 días o más.';}
+function selectOT(ot,scroll){selOT=ot;for(const b of document.querySelectorAll('.oi')){const on=b.dataset.o===ot;b.classList.toggle('sel',on);b.setAttribute('aria-selected',on);}
+  $('oficha').innerHTML=ficha(listRows.find(x=>x.ot===ot));if(scroll&&innerWidth<900)$('oficha').scrollIntoView({behavior:'smooth',block:'start'});}
+function render(){enrich();renderFilters();const rows=rowsFor();$('sub').textContent=`Archivo: ${fileName} · pestañas CDMX y CENTRO`;renderTabs();renderKpis(rows);renderBars(rows);renderAge(rows);renderPpl(rows);drawChart();renderTable(rows);
   try{localStorage.setItem('ot-tab',view)}catch(e){}}
-$('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;view=b.dataset.k;plaza=null;render();});
-$('bars').addEventListener('click',e=>{const b=e.target.closest('.bar');if(!b)return;plaza=plaza===b.dataset.p?null:b.dataset.p;renderBars(rowsFor());renderTable(rowsFor());});
-$('chip').addEventListener('click',e=>{if(e.target.closest('#clr')){plaza=null;renderBars(rowsFor());renderTable(rowsFor());}});
-$('thead').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.s;sortD=sortK===k?-sortD:1;sortK=k;renderTable(rowsFor());});
+const sub=()=>{const r=rowsFor();renderBars(r);renderPpl(r);renderTable(r);};
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;view=b.dataset.k;plaza=null;person=null;render();});
+$('bars').addEventListener('click',e=>{const b=e.target.closest('.bar');if(!b)return;plaza=plaza===b.dataset.p?null:b.dataset.p;sub();});
+$('ppl').addEventListener('click',e=>{const b=e.target.closest('.bar');if(!b)return;person=person===b.dataset.u?null:b.dataset.u;sub();});
+$('sqrt').addEventListener('change',drawAge);
+$('agesvg').addEventListener('click',e=>{const b=e.target.closest('[data-o]');if(!b)return;q='';$('q').value='';plaza=null;person=null;selOT=b.dataset.o;renderTable(rowsFor());document.querySelector('.md').scrollIntoView({behavior:'smooth',block:'start'});});
+$('chip').addEventListener('click',e=>{const c=e.target.closest('[data-clr]');if(!c)return;if(c.dataset.clr==='p')plaza=null;else person=null;sub();});
+$('osort').addEventListener('change',()=>renderTable(rowsFor()));
+$('oseg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;fmen=b.dataset.v;plaza=null;person=null;render();});
+$('olist').addEventListener('click',e=>{const b=e.target.closest('.oi');if(b)selectOT(b.dataset.o,true);});
+$('olist').addEventListener('keydown',e=>{if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;e.preventDefault();const i=listRows.findIndex(x=>x.ot===selOT),n=listRows[Math.min(listRows.length-1,Math.max(0,i+(e.key==='ArrowDown'?1:-1)))];if(n){selectOT(n.ot);document.querySelector('.oi.sel')?.scrollIntoView({block:'nearest'});}});
+$('q').addEventListener('input',e=>{q=e.target.value;renderTable(rowsFor());});
 $('fy').addEventListener('change',e=>{fy=e.target.value;plaza=null;render();});
 $('fm').addEventListener('change',e=>{fm=e.target.value;plaza=null;render();});
-$('freset').addEventListener('click',()=>{fy='';fm='';plaza=null;render();});
-$('q').addEventListener('input',e=>{q=e.target.value;renderTable(rowsFor());});
+$('fmen').addEventListener('change',e=>{fmen=e.target.value;plaza=null;person=null;render();});
+$('freset').addEventListener('click',()=>{fy='';fm='';fmen='';plaza=null;person=null;q='';$('q').value='';render();});
 $('file').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);});
 const dz=$('drop');dz.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file').click();}});
 ['dragenter','dragover'].forEach(t=>document.addEventListener(t,e=>{e.preventDefault();dz.classList.add('on');}));
 ['dragleave','drop'].forEach(t=>document.addEventListener(t,e=>{e.preventDefault();dz.classList.remove('on');}));
 document.addEventListener('drop',e=>{const f=e.dataTransfer?.files?.[0];if(f)readFile(f);});
 const ro=new ResizeObserver(drawChart);ro.observe($('svg'));
+const ro2=new ResizeObserver(drawAge);ro2.observe($('agesvg'));
 try{const v=localStorage.getItem('ot-tab');if(['TODAS','CDMX','CENTRO'].includes(v))view=v;}catch(e){}
 loadSeed();render();
 }
