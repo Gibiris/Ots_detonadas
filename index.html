@@ -248,6 +248,14 @@ body{background:#0b0d12;background-image:radial-gradient(900px 600px at 8% -5%,r
 .fd{margin:12px 0 14px;padding-top:10px;gap:4px 14px}
 .ficha{padding:18px 20px}
 @media(min-width:901px){.olist{height:780px}}
+
+.st.rd .dot{background:#ff9f43;box-shadow:0 0 10px rgba(255,159,67,.8);border:2px solid var(--acc2)}
+.stp b.or{color:#ffb36b}
+.seg.o .ln{background:#ff9f43;box-shadow:0 0 10px rgba(255,159,67,.55)}
+.tags em.y{background:rgba(255,210,63,.12);color:#ffe08a}
+.mv{display:flex;align-items:center;gap:8px;margin:-6px 0 12px;font-size:13px;color:#ffd0a3}
+.mvi{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(255,159,67,.18);color:#ffb36b;font-size:12px}
+.rdt{color:#ffb36b;font-weight:600}
 </style></head><body>
 <header class="band">
   <div><h1 id="title">DETONACIONES RECIBIDAS</h1><p class="tag">IMP_CONECTIVIDAD_CDMX</p><p class="sub" id="sub">Cargando…</p>
@@ -320,13 +328,27 @@ function clientFromSubject(a){
   return '';}
 function parseMen(v){const t=String(v||'').trim();if(!t||/^no\b/i.test(t))return {si:false,ppl:[]};
   const ppl=(t.match(/@[^,@]+/g)||[]).map(x=>x.slice(1).trim()).filter(Boolean);return {si:/^s[ií]/i.test(t)||ppl.length>0,ppl};}
-function norm(rows,sheet){const seen=new Set(),out=[];
-  rows.forEach(r=>{if(!r.asunto&&!r.ot)return;const f=toDate(r.fecha);const key=`${r.ot}|${f?f.getTime():''}`;if(r.ot&&seen.has(key)){dups++;return;}seen.add(key);
-    const m=parseMen(r.men);const x={sheet,fecha:f,rem:r.rem||'',asunto:r.asunto||'',cliente:r.cliente||'',id:r.id||'',plazaRaw:(r.plaza||'').toString().trim(),plaza:(r.plaza||'').toString().trim()||'Sin sucursal',ot:r.ot||'',men:m.si,ppl:m.ppl,menTxt:r.men||'',fmen:toDate(r.fmen),dmen:toNum(r.dmen),dtot:toNum(r.dtot),ing:String(r.ing||'').trim(),req:String(r.req||'').trim(),wo:String(r.wo||'').trim(),fres:toDate(r.fres)};
+function norm(rows,sheet){const out=[];
+  rows.forEach(r=>{if(!r.asunto&&!r.ot)return;const f=toDate(r.fecha);
+    const m=parseMen(r.men);const x={sheet,fecha:f,rem:r.rem||'',asunto:r.asunto||'',cliente:r.cliente||'',id:r.id||'',plazaRaw:(r.plaza||'').toString().trim(),plaza:(r.plaza||'').toString().trim()||'Sin sucursal',ot:r.ot||'',men:m.si,ppl:m.ppl,menTxt:r.men||'',fmen:toDate(r.fmen),dmen:toNum(r.dmen),dtot:toNum(r.dtot),ing:String(r.ing||'').trim(),req:String(r.req||'').trim(),wo:String(r.wo||'').trim(),fres:toDate(r.fres),mov:String(r.mov||'').trim(),movs:String(r.movs||'').trim()};
     if(!x.men&&x.fmen&&/mencionad|^s[ií]/i.test(String(r.men||'')))x.men=true;
     x.res=!!(x.ing||x.fres);
     x.fixed=bad(x.cliente);x.cli=x.fixed?(clientFromSubject(x.asunto)||'Sin cliente'):x.cliente;out.push(x);});
-  return out;}
+  return group(out);}
+const isRedet=r=>/redeton/i.test(r.mov)||(!r.mov&&/redeton/i.test(r.asunto));
+function group(rows){const g=new Map(),res=[];
+  rows.forEach(r=>{if(!r.ot){res.push(Object.assign(r,{redets:[],nrows:1,lastMail:r.fecha}));return;}if(!g.has(r.ot)){g.set(r.ot,[]);res.push(r.ot);}g.get(r.ot).push(r);});
+  return res.map(k=>{if(typeof k!=='string')return k;const rs=g.get(k).sort((a,b)=>(a.fecha||0)-(b.fecha||0));
+    const base=rs.find(r=>!isRedet(r))||rs[0];const m={...base};
+    const mr=rs.find(r=>r.men&&r.fmen)||rs.find(r=>r.men);if(mr){m.men=true;m.ppl=mr.ppl;m.menTxt=mr.menTxt;m.fmen=mr.fmen;m.dmen=mr.dmen;}
+    const rr=rs.find(r=>r.res&&r.fres)||rs.find(r=>r.res);if(rr){m.res=true;m.ing=rr.ing;m.req=rr.req;m.wo=rr.wo;m.fres=rr.fres;}
+    const dt=rs.map(r=>r.dtot).filter(v=>v!=null);m.dtot=dt.length?Math.max(...dt):null;
+    const seen=new Set();m.redets=rs.filter(isRedet).map(r=>r.fecha).filter(d=>d&&!seen.has(d.getTime())&&seen.add(d.getTime())).sort((a,b)=>a-b);
+    m.movs=rs.map(r=>r.movs).filter(Boolean).sort((a,b)=>b.length-a.length)[0]||'';
+    m.nrows=rs.length;m.lastMail=rs.reduce((a,r)=>r.fecha&&(!a||r.fecha>a)?r.fecha:a,null);m.baseRedet=isRedet(base);
+    if(m.fixed){const ok=rs.find(r=>!r.fixed);if(ok){m.cli=ok.cli;m.fixed=false;}}
+    if(!m.id){const o=rs.find(r=>r.id);if(o)m.id=o.id;}if(!m.plazaRaw){const o=rs.find(r=>r.plazaRaw);if(o){m.plazaRaw=o.plazaRaw;m.plaza=o.plaza;}}
+    dups+=rs.length-1;return m;});}
 function loadSeed(){dups=0;for(const s of SHEETS)data[s]=norm(SEED[s]||[],s);}
 const nk=k=>k.normalize('NFD').replace(/[̀-ͯ]/g,'').trim().toLowerCase();
 function pick(o,names){const k=Object.keys(o).find(k=>names.includes(nk(k)));return k?o[k]:'';}
@@ -338,7 +360,7 @@ function readFile(f){
     const wb=XLSX.read(e.target.result,{type:'array',cellDates:true});const found={};dups=0;
     for(const s of SHEETS){const name=wb.SheetNames.find(n=>n.trim().toUpperCase()===s);if(!name)continue;
       const rows=XLSX.utils.sheet_to_json(wb.Sheets[name],{defval:''});
-      found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot']),men:pick(o,['1ra mencion','primera mencion','mencion']),fmen:pick(o,['fecha 1ra mencion','fecha primera mencion','fecha mencion']),dmen:pick(o,['dias hasta mencion']),dtot:pick(o,['dias totales ot','dias totales']),ing:pick(o,['ingeniero que responde','ingeniero']),req:pick(o,['req serv','req. serv','req servicio']),wo:pick(o,['wo']),fres:pick(o,['fecha respuesta','fecha de respuesta'])})),s);}
+      found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot']),men:pick(o,['1ra mencion','primera mencion','mencion']),fmen:pick(o,['fecha 1ra mencion','fecha primera mencion','fecha mencion']),dmen:pick(o,['dias hasta mencion']),dtot:pick(o,['dias totales ot','dias totales']),ing:pick(o,['ingeniero que responde','ingeniero']),req:pick(o,['req serv','req. serv','req servicio']),wo:pick(o,['wo']),fres:pick(o,['fecha respuesta','fecha de respuesta']),mov:pick(o,['movimiento']),movs:pick(o,['movimientos de la ot','movimientos'])})),s);}
     if(!Object.keys(found).length){showErr('El archivo no tiene pestañas llamadas CDMX ni CENTRO.');return;}
     data={CDMX:found.CDMX||[],CENTRO:found.CENTRO||[]};fileName=f.name;plaza=null;person=null;selOT=null;showDash(true);render();
   }catch(err){showErr('No se pudo leer el archivo: '+err.message);}};
@@ -395,7 +417,7 @@ function enrich(){
     if(r.fmen&&r.dmen!=null){d=new Date(r.fmen.getTime()-r.dmen*DAY);src='mención';}
     else if(r.dtot!=null){d=new Date(REF.getTime()-r.dtot*DAY);d.setHours(r.fecha?r.fecha.getHours():12,r.fecha?r.fecha.getMinutes():0);src='días totales';}
     else d=r.fecha;
-    r.det=d;r.reenv=!!(r.fecha&&d&&Math.abs(r.fecha-d)>1.5*DAY);r.detSrc=src;});
+    r.det=d;r.reenv=!r.baseRedet&&!!(r.fecha&&d&&Math.abs(r.fecha-d)>1.5*DAY);r.detSrc=src;});
 }
 function renderAge(rows){ageRows=rows.filter(r=>r.dtot!=null).sort((x,y)=>y.dtot-x.dtot);drawAge();}
 function drawAge(){
@@ -443,27 +465,28 @@ function avatar(n,cls){const f=photoFor(n);return f?`<img class="${cls}" src="${
 const dias=n=>n==null||n==='?'?`${n??'—'} días`:`${n} día${Math.abs(n)===1?'':'s'}`;
 const dd=(a,b)=>a&&b?Math.round((b-a)/DAY):null;
 function stepper(x){
-  const hot=!x.men&&(x.dtot??0)>=15;let h='<ol class="stp">';
-  h+=`<li class="st det"><span class="dot"></span><div><b>Detonación</b><span>${fmtDT(x.det)}</span>${x.reenv?`<small>Calculada con ${x.detSrc==='mención'?'fecha de mención − días hasta mención':'fecha de corte − días totales'}</small>`:''}</div></li>`;
-  let last=x.det;
-  if(x.men&&x.fmen){
-    h+=`<li class="seg b"><span class="ln"></span><div><b class="c">${dias(x.dmen??dd(x.det,x.fmen))}</b><span>hasta la 1ra mención</span></div></li>`;
-    h+=`<li class="st men"><span class="dot"></span><div><b class="c">1ra mención</b><span>${fmtDT(x.fmen)}</span>${x.ppl.length?`<div class="tags">${x.ppl.map(p=>`<em>@${esc(p)}</em>`).join('')}</div>`:''}</div></li>`;
-    last=x.fmen;
-  }else{
-    h+=`<li class="st nomen"><span class="dot"></span><div><b class="${hot?'r':'y'}">Sin 1ra mención registrada</b></div></li>`;
-  }
-  if(x.res&&x.fres){
-    const n=dd(last,x.fres);const before=n!=null&&n<0;
-    h+=`<li class="seg v"><span class="ln"></span><div><b class="gr">${n==null?'—':dias(Math.abs(n))}</b><span>${before?'antes de la mención':(x.men?'de la mención a la respuesta':'de la detonación a la respuesta')}</span></div></li>`;
-    h+=`<li class="st res"><span class="dot"></span>${avatar(x.ing,'av')}<div><b class="gr">Respuesta con recursos</b><span>${fmtDT(x.fres)}${x.ing?` · ${esc(x.ing)}`:''}</span><div class="tags">${x.req?`<em class="g">Req Serv ${esc(x.req)}</em>`:''}${x.wo?`<em class="g">${esc(x.wo)}</em>`:''}</div></div></li>`;
-    last=x.fres;
-  }else if(x.res){
-    h+=`<li class="st res"><span class="dot"></span>${avatar(x.ing,'av')}<div><b class="gr">Respuesta con recursos</b><span>${esc(x.ing)} · sin fecha de respuesta</span></div></li>`;
-  }
-  const rest=dd(last,REF);
-  h+=`<li class="seg ${x.res?'g':hot?'r':'w'}"><span class="ln"></span><div><b>${dias(rest)}</b><span>${x.res?'desde la respuesta':'sin respuesta con recursos'}</span></div></li>`;
-  h+=`<li class="st cut ${!x.res&&hot?'hot':''}"><span class="dot"></span><div><b class="${!x.res&&hot?'r':''}">${x.res?'Corte '+fmtD(REF):'Pendiente de respuesta con recursos'}</b><span>${x.res?'':'Corte '+fmtD(REF)+' · '}<b class="big ${!x.res&&hot?'r':''}">${x.dtot??'—'}</b> días totales</span></div></li>`;
+  const hot=!x.res&&(x.dtot??0)>=15;
+  const ev=[{k:'det',d:x.det}];
+  (x.redets||[]).forEach((d,i)=>{if(x.baseRedet&&x.det&&Math.abs(d-x.det)<1.5*DAY){ev[0].k='redet0';return;}ev.push({k:'redet',d,n:i+1});});
+  if(x.men&&x.fmen)ev.push({k:'men',d:x.fmen});
+  if(x.res&&x.fres)ev.push({k:'res',d:x.fres});
+  const first=ev.shift();ev.sort((a,b)=>a.d-b.d);ev.unshift(first);
+  const nR=ev.filter(e=>e.k==='redet').length;
+  const lbl={redet:'la redetonación',men:'la 1ra mención',res:'la respuesta'};
+  let h='<ol class="stp">';
+  ev.forEach((e,i)=>{
+    if(i){const n=dd(ev[i-1].d,e.d);const cls=e.k==='men'?'b':e.k==='res'?'v':'o';
+      h+=`<li class="seg ${cls}"><span class="ln"></span><div><b class="${cls==='b'?'c':cls==='v'?'gr':'or'}">${dias(n)}</b><span>hasta ${lbl[e.k]}</span></div></li>`;}
+    if(e.k==='det'||e.k==='redet0'){const r0=e.k==='redet0';
+      h+=`<li class="st det${r0?' rd':''}"><span class="dot"></span><div><b class="${r0?'or':''}">${r0?'Redetonación':'Detonación'}</b><span>${fmtDT(e.d)}</span>${x.reenv?`<small>Calculada con ${x.detSrc==='mención'?'fecha de mención − días hasta mención':'fecha de corte − días totales'}</small>`:''}${x.baseRedet&&!r0?'<small>Detonación original calculada; el correo recibido es una redetonación</small>':''}</div></li>`;}
+    else if(e.k==='redet')h+=`<li class="st rd"><span class="dot"></span><div><b class="or">Redetonación${nR>1?' '+e.n:''}</b><span>${fmtDT(e.d)}</span></div></li>`;
+    else if(e.k==='men')h+=`<li class="st men"><span class="dot"></span><div><b class="c">1ra mención</b><span>${fmtDT(x.fmen)}</span>${x.ppl.length?`<div class="tags">${x.ppl.map(p=>`<em>@${esc(p)}</em>`).join('')}</div>`:''}</div></li>`;
+    else if(e.k==='res')h+=`<li class="st res"><span class="dot"></span>${avatar(x.ing,'av')}<div><b class="gr">Respuesta con recursos</b><span>${fmtDT(x.fres)}${x.ing?` · ${esc(x.ing)}`:''}</span><div class="tags">${x.req?`<em class="g">Req Serv ${esc(x.req)}</em>`:''}${x.wo?`<em class="g">${esc(x.wo)}</em>`:''}</div></div></li>`;
+  });
+  const last=ev[ev.length-1].d,rest=dd(last,REF);
+  const pend=[!x.men?'<em class="y">Sin 1ra mención</em>':'',!x.res?'<em class="y">Sin respuesta con recursos</em>':''].join('');
+  h+=`<li class="seg ${x.res?'g':hot?'r':'w'}"><span class="ln"></span><div><b>${dias(rest)}</b><span>desde ${({det:'la detonación',redet0:'la redetonación',redet:'la redetonación',men:'la 1ra mención',res:'la respuesta'})[ev[ev.length-1].k]}</span></div></li>`;
+  h+=`<li class="st cut ${hot?'hot':''}"><span class="dot"></span><div><b class="${hot?'r':''}">${x.res?'Corte '+fmtD(REF):'Pendiente de respuesta con recursos'}</b><span>${x.res?'':'Corte '+fmtD(REF)+' · '}<b class="big ${hot?'r':''}">${x.dtot??'—'}</b> días totales</span>${pend?`<div class="tags">${pend}</div>`:''}</div></li>`;
   return h+'</ol>';}
 function engCard(x){
   if(!x.res)return `<section class="eng none"><span class="avb ini">?</span><div><span class="el">Respuesta con recursos</span><b>Aún sin ingeniero asignado</b><span class="es"><i class="led y"></i>Pendiente</span></div></section>`;
@@ -475,9 +498,9 @@ function ficha(x){
   if(!x)return '<div class="fempty">Elige una OT de la lista para ver su línea de tiempo.</div>';
   return `<div class="fh"><span class="mono">${esc(x.ot)}</span><span class="badge ${x.men?'b-si':'b-no'}"><i class="led ${x.men?'g':'y'}" style="width:8px;height:8px;margin-right:6px;vertical-align:0"></i>${x.men?'Con 1ra mención':'Sin mención'}</span></div>
   <h3 class="fn">${esc(x.cli)}${x.fixed?' <span class="warn" title="Cliente tomado del asunto">*</span>':''}</h3>
-  <p class="fm">${esc(x.plaza)} · ID ${esc(x.id||'—')} · ${x.sheet==='CDMX'?'CDMX':'Centro'}</p>
+  <p class="fm">${esc(x.plaza)} · ID ${esc(x.id||'—')} · ${x.sheet==='CDMX'?'CDMX':'Centro'}</p>${x.movs?`<p class="mv"><span class="mvi">${(x.redets||[]).length?'↻':'•'}</span>${esc(x.movs)}</p>`:''}
   ${stepper(x)}
-  <dl class="fd"><dt>Fecha del correo</dt><dd>${fmtDT(x.fecha)}${x.reenv?' <span class="warn">(reenvío posterior)</span>':''}</dd><dt>Remitente</dt><dd>${esc(x.rem||'—')}</dd><dt>Asunto</dt><dd>${esc(x.asunto)}</dd></dl>${engCard(x)}`;}
+  <dl class="fd"><dt>${x.nrows>1?'Último correo':'Fecha del correo'}</dt><dd>${fmtDT(x.nrows>1?x.lastMail:x.fecha)}${x.nrows>1?` <span class="warn">(${x.nrows} correos de esta OT)</span>`:''}${x.reenv?' <span class="warn">(reenvío posterior)</span>':''}</dd><dt>Remitente</dt><dd>${esc(x.rem||'—')}</dd><dt>Asunto</dt><dd>${esc(x.asunto)}</dd></dl>${engCard(x)}`;}
 let listRows=[];
 function renderTable(rows){
   const [k,d]=SORTS[$('osort').value]||SORTS.dtot;
@@ -487,11 +510,11 @@ function renderTable(rows){
    $('cA').textContent=base.length;$('cS').textContent=base.filter(x=>x.men).length;$('cN').textContent=base.filter(x=>!x.men).length;
    for(const b of document.querySelectorAll('#oseg button'))b.setAttribute('aria-pressed',b.dataset.v===fmen);}
   listRows=r;if(!r.some(x=>x.ot===selOT))selOT=r[0]?.ot??null;
-  $('olist').innerHTML=r.length?r.map(x=>{const hot=!x.men&&(x.dtot??0)>=15;return `<button class="oi${x.ot===selOT?' sel':''}" data-o="${esc(x.ot)}" role="option" aria-selected="${x.ot===selOT}"><span class="oc"><span class="mono">${esc(x.ot)}</span><span class="ocl">${esc(x.cli)}</span><span class="ops">${esc(x.plaza)}</span></span><span class="od${hot?' r':''}">${x.dtot??'—'} d<i class="led ${x.men?'g':'y'}" title="${x.men?'Con 1ra mención':'Sin mención'}"></i></span></button>`;}).join(''):'<p class="empty">No hay detonaciones con ese filtro</p>';
+  $('olist').innerHTML=r.length?r.map(x=>{const hot=!x.men&&(x.dtot??0)>=15;return `<button class="oi${x.ot===selOT?' sel':''}" data-o="${esc(x.ot)}" role="option" aria-selected="${x.ot===selOT}"><span class="oc"><span class="mono">${esc(x.ot)}</span><span class="ocl">${esc(x.cli)}</span><span class="ops">${esc(x.plaza)}${(x.redets||[]).length?` · <b class="rdt">Redetonación${x.redets.length>1?" ×"+x.redets.length:""}</b>`:""}</span></span><span class="od${hot?' r':''}">${x.dtot??'—'} d<i class="led ${x.men?'g':'y'}" title="${x.men?'Con 1ra mención':'Sin mención'}"></i></span></button>`;}).join(''):'<p class="empty">No hay detonaciones con ese filtro</p>';
   $('oficha').innerHTML=ficha(r.find(x=>x.ot===selOT));
   $('chip').innerHTML=(plaza?`<button class="chip" data-clr="p">Sucursal: ${esc(plaza)} ✕</button> `:'')+(person?`<button class="chip" data-clr="u">Persona: ${esc(person)} ✕</button>`:'');
   const fx=rows.some(x=>x.fixed);
-  $('note').innerHTML=`Mostrando ${r.length} de ${rows.length}.`+(fx?' <span class="warn">*</span> Cliente tomado del asunto porque la celda venía vacía o con texto ajeno.':'')+(dups?` Se omitieron ${dups} fila${dups===1?'':'s'} duplicada${dups===1?'':'s'} (misma OT y fecha).`:'')+' Días en rojo: OTs sin mención con 15 días o más.';}
+  $('note').innerHTML=`Mostrando ${r.length} de ${rows.length}.`+(fx?' <span class="warn">*</span> Cliente tomado del asunto porque la celda venía vacía o con texto ajeno.':'')+(dups?` Se agruparon ${dups} fila${dups===1?'':'s'} repetida${dups===1?'':'s'} o de redetonación en su OT.`:'')+' Días en rojo: OTs sin mención con 15 días o más.';}
 let dlNS;
 if(typeof window.claude?.use==='function')window.claude.use('downloads').then(n=>{dlNS=n;}).catch(()=>{dlNS=null;});
 function xmsg(t,err){const m=$('xmsg');m.textContent=t;m.className='xmsg'+(err?' e':'');}
@@ -499,9 +522,9 @@ function filtrosTxt(){return [['Pestaña',view==='TODAS'?'Ambas':view==='CDMX'?'
 async function exportar(){
   if(typeof XLSX==='undefined'){xmsg('No se pudo cargar el generador de Excel (revisa tu conexión a internet).',true);return;}
   if(!listRows.length){xmsg('No hay detonaciones con los filtros actuales para exportar.',true);return;}
-  const rows=listRows.map(x=>({'Pestaña':x.sheet==='CDMX'?'CDMX':'CENTRO','OT':x.ot,'Detonación':x.det||'','Fecha correo':x.fecha||'','Cliente':x.cli,'No. sucursal':x.snum||'','Sucursal':x.sname,'ID MCA':x.id,'1ra mención':x.men?'Sí':'No','Personas mencionadas':x.ppl.join(', '),'Fecha 1ra mención':x.fmen||'','Días hasta mención':x.dmen??'','Días totales OT':x.dtot??'','Ingeniero que responde':x.ing,'Req Serv':x.req,'WO':x.wo,'Fecha respuesta':x.fres||'','Estado':x.men?'Con mención':((x.dtot??0)>=15?'Sin mención (+15 días)':'Sin mención'),'Remitente':x.rem,'Asunto':x.asunto}));
+  const rows=listRows.map(x=>({'Pestaña':x.sheet==='CDMX'?'CDMX':'CENTRO','OT':x.ot,'Detonación':x.det||'','Fecha correo':x.fecha||'','Cliente':x.cli,'No. sucursal':x.snum||'','Sucursal':x.sname,'ID MCA':x.id,'1ra mención':x.men?'Sí':'No','Personas mencionadas':x.ppl.join(', '),'Fecha 1ra mención':x.fmen||'','Días hasta mención':x.dmen??'','Días totales OT':x.dtot??'','Ingeniero que responde':x.ing,'Req Serv':x.req,'WO':x.wo,'Fecha respuesta':x.fres||'','Redetonaciones':(x.redets||[]).map(fmtDT).join(', '),'Movimientos de la OT':x.movs,'Estado':x.men?'Con mención':((x.dtot??0)>=15?'Sin mención (+15 días)':'Sin mención'),'Remitente':x.rem,'Asunto':x.asunto}));
   const ws=XLSX.utils.json_to_sheet(rows,{cellDates:true,dateNF:'dd/mm/yyyy hh:mm'});
-  ws['!cols']=[8,12,17,17,38,12,22,14,11,34,17,12,12,22,12,14,17,22,30,70].map(w=>({wch:w}));
+  ws['!cols']=[8,12,17,17,38,12,22,14,11,34,17,12,12,22,12,14,17,22,36,22,30,70].map(w=>({wch:w}));
   ws['!autofilter']={ref:ws['!ref']};
   const wf=XLSX.utils.aoa_to_sheet([['Filtro','Valor'],...filtrosTxt()]);wf['!cols']=[{wch:22},{wch:40}];
   const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Detonaciones');XLSX.utils.book_append_sheet(wb,wf,'Filtros');
