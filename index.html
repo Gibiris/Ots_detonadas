@@ -330,7 +330,7 @@ function parseMen(v){const t=String(v||'').trim();if(!t||/^no\b/i.test(t))return
   const ppl=(t.match(/@[^,@]+/g)||[]).map(x=>x.slice(1).trim()).filter(Boolean);return {si:/^s[ií]/i.test(t)||ppl.length>0,ppl};}
 function norm(rows,sheet){const out=[];
   rows.forEach(r=>{if(!r.asunto&&!r.ot)return;const f=toDate(r.fecha);
-    const m=parseMen(r.men);const x={sheet,fecha:f,rem:r.rem||'',asunto:r.asunto||'',cliente:r.cliente||'',id:r.id||'',plazaRaw:(r.plaza||'').toString().trim(),plaza:(r.plaza||'').toString().trim()||'Sin sucursal',ot:r.ot||'',men:m.si,ppl:m.ppl,menTxt:r.men||'',fmen:toDate(r.fmen),dmen:toNum(r.dmen),dtot:toNum(r.dtot),ing:String(r.ing||'').trim(),req:String(r.req||'').trim(),wo:String(r.wo||'').trim(),fres:toDate(r.fres),mov:String(r.mov||'').trim(),movs:String(r.movs||'').trim()};
+    const m=parseMen(r.men);const x={sheet,fecha:f,rem:r.rem||'',asunto:r.asunto||'',cliente:r.cliente||'',id:r.id||'',plazaRaw:(r.plaza||'').toString().trim(),plaza:(r.plaza||'').toString().trim()||'Sin sucursal',ot:r.ot||'',men:m.si,ppl:m.ppl,menTxt:r.men||'',fmen:toDate(r.fmen),dmen:toNum(r.dmen),dtot:toNum(r.dtot),ing:String(r.ing||'').trim(),req:String(r.req||'').trim(),fres:toDate(r.fres),mov:String(r.mov||'').trim(),movs:String(r.movs||'').trim()};
     if(!x.men&&x.fmen&&/mencionad|^s[ií]/i.test(String(r.men||'')))x.men=true;
     x.res=!!(x.ing||x.fres);
     x.fixed=bad(x.cliente);x.cli=x.fixed?(clientFromSubject(x.asunto)||'Sin cliente'):x.cliente;out.push(x);});
@@ -341,7 +341,7 @@ function group(rows){const g=new Map(),res=[];
   return res.map(k=>{if(typeof k!=='string')return k;const rs=g.get(k).sort((a,b)=>(a.fecha||0)-(b.fecha||0));
     const base=rs.find(r=>!isRedet(r))||rs[0];const m={...base};
     const mr=rs.find(r=>r.men&&r.fmen)||rs.find(r=>r.men);if(mr){m.men=true;m.ppl=mr.ppl;m.menTxt=mr.menTxt;m.fmen=mr.fmen;m.dmen=mr.dmen;}
-    const rr=rs.find(r=>r.res&&r.fres)||rs.find(r=>r.res);if(rr){m.res=true;m.ing=rr.ing;m.req=rr.req;m.wo=rr.wo;m.fres=rr.fres;}
+    const rr=rs.find(r=>r.res&&r.fres)||rs.find(r=>r.res);if(rr){m.res=true;m.ing=rr.ing;m.req=rr.req;m.fres=rr.fres;}
     const dt=rs.map(r=>r.dtot).filter(v=>v!=null);m.dtot=dt.length?Math.max(...dt):null;
     const seen=new Set();m.redets=rs.filter(isRedet).map(r=>r.fecha).filter(d=>d&&!seen.has(d.getTime())&&seen.add(d.getTime())).sort((a,b)=>a-b);
     m.movs=rs.map(r=>r.movs).filter(Boolean).sort((a,b)=>b.length-a.length)[0]||'';
@@ -360,7 +360,7 @@ function readFile(f){
     const wb=XLSX.read(e.target.result,{type:'array',cellDates:true});const found={};dups=0;
     for(const s of SHEETS){const name=wb.SheetNames.find(n=>n.trim().toUpperCase()===s);if(!name)continue;
       const rows=XLSX.utils.sheet_to_json(wb.Sheets[name],{defval:''});
-      found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot']),men:pick(o,['1ra mencion','primera mencion','mencion']),fmen:pick(o,['fecha 1ra mencion','fecha primera mencion','fecha mencion']),dmen:pick(o,['dias hasta mencion']),dtot:pick(o,['dias totales ot','dias totales']),ing:pick(o,['ingeniero que responde','ingeniero']),req:pick(o,['req serv','req. serv','req servicio']),wo:pick(o,['wo']),fres:pick(o,['fecha respuesta','fecha de respuesta']),mov:pick(o,['movimiento']),movs:pick(o,['movimientos de la ot','movimientos'])})),s);}
+      found[s]=norm(rows.map(o=>({fecha:pick(o,['fecha']),rem:pick(o,['remitente original','remitente']),asunto:pick(o,['asunto']),cliente:pick(o,['cliente']),id:pick(o,['id mca','id']),plaza:pick(o,['plaza','sucursal']),ot:pick(o,['ot']),men:pick(o,['1ra mencion','primera mencion','mencion']),fmen:pick(o,['fecha 1ra mencion','fecha primera mencion','fecha mencion']),dmen:pick(o,['dias hasta mencion']),dtot:pick(o,['dias totales ot','dias totales']),ing:pick(o,['ingeniero que responde','ingeniero']),req:pick(o,['req serv','req. serv','req servicio']),fres:pick(o,['fecha respuesta','fecha de respuesta']),mov:pick(o,['movimiento']),movs:pick(o,['movimientos de la ot','movimientos'])})),s);}
     if(!Object.keys(found).length){showErr('El archivo no tiene pestañas llamadas CDMX ni CENTRO.');return;}
     data={CDMX:found.CDMX||[],CENTRO:found.CENTRO||[]};fileName=f.name;plaza=null;person=null;selOT=null;showDash(true);render();
   }catch(err){showErr('No se pudo leer el archivo: '+err.message);}};
@@ -462,7 +462,7 @@ function photoFor(n){const k=nkey(n);if(!k)return null;if(FOTOS[k])return FOTOS[
   for(const [key,v] of Object.entries(FOTOS)){const kt=key.split(' ');if(kt.every(w=>t.includes(w)))return v;}return null;}
 const ini=n=>String(n||'?').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
 function avatar(n,cls){const f=photoFor(n);return f?`<img class="${cls}" src="${f}" alt="${esc(n)}">`:`<span class="${cls} ini">${esc(ini(n))}</span>`;}
-const dias=n=>n==null||n==='?'?`${n??'—'} días`:`${n} día${Math.abs(n)===1?'':'s'}`;
+const dias=n=>n==null||n==='?'?`${n??'—'} días`:n===0?'Mismo día':`${n} día${Math.abs(n)===1?'':'s'}`;
 const dd=(a,b)=>a&&b?Math.round((b-a)/DAY):null;
 function stepper(x){
   const hot=!x.res&&(x.dtot??0)>=15;
@@ -481,7 +481,7 @@ function stepper(x){
       h+=`<li class="st det${r0?' rd':''}"><span class="dot"></span><div><b class="${r0?'or':''}">${r0?'Redetonación':'Detonación'}</b><span>${fmtDT(e.d)}</span>${x.reenv?`<small>Calculada con ${x.detSrc==='mención'?'fecha de mención − días hasta mención':'fecha de corte − días totales'}</small>`:''}${x.baseRedet&&!r0?'<small>Detonación original calculada; el correo recibido es una redetonación</small>':''}</div></li>`;}
     else if(e.k==='redet')h+=`<li class="st rd"><span class="dot"></span><div><b class="or">Redetonación${nR>1?' '+e.n:''}</b><span>${fmtDT(e.d)}</span></div></li>`;
     else if(e.k==='men')h+=`<li class="st men"><span class="dot"></span><div><b class="c">1ra mención</b><span>${fmtDT(x.fmen)}</span>${x.ppl.length?`<div class="tags">${x.ppl.map(p=>`<em>@${esc(p)}</em>`).join('')}</div>`:''}</div></li>`;
-    else if(e.k==='res')h+=`<li class="st res"><span class="dot"></span>${avatar(x.ing,'av')}<div><b class="gr">Respuesta con recursos</b><span>${fmtDT(x.fres)}${x.ing?` · ${esc(x.ing)}`:''}</span><div class="tags">${x.req?`<em class="g">Req Serv ${esc(x.req)}</em>`:''}${x.wo?`<em class="g">${esc(x.wo)}</em>`:''}</div></div></li>`;
+    else if(e.k==='res')h+=`<li class="st res"><span class="dot"></span>${avatar(x.ing,'av')}<div><b class="gr">Respuesta con recursos</b><span>${fmtDT(x.fres)}${x.ing?` · ${esc(x.ing)}`:''}</span><div class="tags">${x.req?`<em class="g">Req Serv ${esc(x.req)}</em>`:''}</div></div></li>`;
   });
   const last=ev[ev.length-1].d,rest=dd(last,REF);
   const pend=[!x.men?'<em class="y">Sin 1ra mención</em>':'',!x.res?'<em class="y">Sin respuesta con recursos</em>':''].join('');
@@ -493,7 +493,7 @@ function engCard(x){
   const days=dd(x.det,x.fres);
   return `<section class="eng">${avatar(x.ing,'avb')}<div><span class="el">Ingeniero que respondió con recursos</span><b>${esc(x.ing||'Sin nombre')}</b>
    <span class="es"><i class="led g"></i>${x.fres?fmtDT(x.fres):'Sin fecha'}${days!=null?` · a los ${dias(days)} de la detonación`:''}</span>
-   <div class="tags">${x.req?`<em class="g">Req Serv ${esc(x.req)}</em>`:''}${x.wo?`<em class="g">WO ${esc(x.wo.replace(/^WO/i,''))}</em>`:''}</div></div></section>`;}
+   <div class="tags">${x.req?`<em class="g">Req Serv ${esc(x.req)}</em>`:''}</div></div></section>`;}
 function ficha(x){
   if(!x)return '<div class="fempty">Elige una OT de la lista para ver su línea de tiempo.</div>';
   return `<div class="fh"><span class="mono">${esc(x.ot)}</span><span class="badge ${x.men?'b-si':'b-no'}"><i class="led ${x.men?'g':'y'}" style="width:8px;height:8px;margin-right:6px;vertical-align:0"></i>${x.men?'Con 1ra mención':'Sin mención'}</span></div>
@@ -504,7 +504,7 @@ function ficha(x){
 let listRows=[];
 function renderTable(rows){
   const [k,d]=SORTS[$('osort').value]||SORTS.dtot;
-  const qq=q.toLowerCase();let r=rows.filter(x=>(!plaza||x.plaza===plaza)&&(!person||x.ppl.includes(person))&&(!qq||[x.ot,x.cli,x.cliente,x.plaza,x.id,x.rem,x.asunto,x.menTxt,x.ing,x.req,x.wo].join(' ').toLowerCase().includes(qq)));
+  const qq=q.toLowerCase();let r=rows.filter(x=>(!plaza||x.plaza===plaza)&&(!person||x.ppl.includes(person))&&(!qq||[x.ot,x.cli,x.cliente,x.plaza,x.id,x.rem,x.asunto,x.menTxt,x.ing,x.req].join(' ').toLowerCase().includes(qq)));
   r.sort((a,b)=>{const A=a[k],B=b[k];if(A==null||A==='')return 1;if(B==null||B==='')return -1;return (A>B?1:A<B?-1:0)*d;});
   {const base=(view==='TODAS'?[...data.CDMX,...data.CENTRO]:data[view]).filter(x=>{const f=fmen;fmen='';const ok=inPeriod(x);fmen=f;return ok;});
    $('cA').textContent=base.length;$('cS').textContent=base.filter(x=>x.men).length;$('cN').textContent=base.filter(x=>!x.men).length;
@@ -522,9 +522,9 @@ function filtrosTxt(){return [['Pestaña',view==='TODAS'?'Ambas':view==='CDMX'?'
 async function exportar(){
   if(typeof XLSX==='undefined'){xmsg('No se pudo cargar el generador de Excel (revisa tu conexión a internet).',true);return;}
   if(!listRows.length){xmsg('No hay detonaciones con los filtros actuales para exportar.',true);return;}
-  const rows=listRows.map(x=>({'Pestaña':x.sheet==='CDMX'?'CDMX':'CENTRO','OT':x.ot,'Detonación':x.det||'','Fecha correo':x.fecha||'','Cliente':x.cli,'No. sucursal':x.snum||'','Sucursal':x.sname,'ID MCA':x.id,'1ra mención':x.men?'Sí':'No','Personas mencionadas':x.ppl.join(', '),'Fecha 1ra mención':x.fmen||'','Días hasta mención':x.dmen??'','Días totales OT':x.dtot??'','Ingeniero que responde':x.ing,'Req Serv':x.req,'WO':x.wo,'Fecha respuesta':x.fres||'','Redetonaciones':(x.redets||[]).map(fmtDT).join(', '),'Movimientos de la OT':x.movs,'Estado':x.men?'Con mención':((x.dtot??0)>=15?'Sin mención (+15 días)':'Sin mención'),'Remitente':x.rem,'Asunto':x.asunto}));
+  const rows=listRows.map(x=>({'Pestaña':x.sheet==='CDMX'?'CDMX':'CENTRO','OT':x.ot,'Detonación':x.det||'','Fecha correo':x.fecha||'','Cliente':x.cli,'No. sucursal':x.snum||'','Sucursal':x.sname,'ID MCA':x.id,'1ra mención':x.men?'Sí':'No','Personas mencionadas':x.ppl.join(', '),'Fecha 1ra mención':x.fmen||'','Días hasta mención':x.dmen??'','Días totales OT':x.dtot??'','Ingeniero que responde':x.ing,'Req Serv':x.req,'Fecha respuesta':x.fres||'','Redetonaciones':(x.redets||[]).map(fmtDT).join(', '),'Movimientos de la OT':x.movs,'Estado':x.men?'Con mención':((x.dtot??0)>=15?'Sin mención (+15 días)':'Sin mención'),'Remitente':x.rem,'Asunto':x.asunto}));
   const ws=XLSX.utils.json_to_sheet(rows,{cellDates:true,dateNF:'dd/mm/yyyy hh:mm'});
-  ws['!cols']=[8,12,17,17,38,12,22,14,11,34,17,12,12,22,12,14,17,22,36,22,30,70].map(w=>({wch:w}));
+  ws['!cols']=[8,12,17,17,38,12,22,14,11,34,17,12,12,22,12,17,22,36,22,30,70].map(w=>({wch:w}));
   ws['!autofilter']={ref:ws['!ref']};
   const wf=XLSX.utils.aoa_to_sheet([['Filtro','Valor'],...filtrosTxt()]);wf['!cols']=[{wch:22},{wch:40}];
   const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Detonaciones');XLSX.utils.book_append_sheet(wb,wf,'Filtros');
